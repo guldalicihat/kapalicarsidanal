@@ -106,7 +106,7 @@ export const PRODUCTS: Product[] = [
     kod: "KA-B101", tedarikciKod: "T4-BRM-1250", ad: "Burma Altın Bilezik", kategori: "bilezik", art: "bilezik",
     ayar: 22, milyem: 916, renk: "Sarı altın", iscilikMilyem: 25, olcuTuru: "Çap",
     varyantlar: [r("60 mm", 12.1), r("62 mm", 12.5), r("64 mm", 12.9, "tedarikci")],
-    aciklama: "22 ayar, geleneksel burma işçilik. Yatırım ile takıyı bir arada isteyenler için.",
+    aciklama: "22 ayar, geleneksel burma desen. Takıyla birikimi bir arada isteyenler için.",
     ustaNotu: "Geleneksel burma, 22 ayar. Hem kolunda süs hem kenarda birikim; ananelerimizin bileziği boşuna sevilmedi!",
     ustaSecimi: true,
   },

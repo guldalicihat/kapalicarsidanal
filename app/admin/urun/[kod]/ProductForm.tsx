@@ -77,8 +77,8 @@ export default function ProductForm({ urun, kategoriler, hasKurus, altinKaynak }
               <option value="">Ölçü yok (tek ölçü)</option><option>Yüzük ölçüsü</option><option>Uzunluk</option><option>Çap</option>
             </select>
           </label>
-          <label className="f span3">Açıklama<textarea name="aciklama" defaultValue={urun?.aciklama ?? ""} placeholder="Model, işçilik, kullanım…" /></label>
-          <label className="f span3">Cevat Usta'nın notu<textarea name="ustaNotu" defaultValue={urun?.usta_notu ?? ""} placeholder="Ürünü tanıtan, öven samimi bir söz. Örn: Bu burgu tam bir klasik! Işığı her açıdan yakalar…" /></label>
+          <label className="f span3">Açıklama<span className="hint">Müşteri görür: işçilik oranı ve olumsuz ifade yazmayın.</span><textarea name="aciklama" defaultValue={urun?.aciklama ?? ""} placeholder="Model, işçilik, kullanım…" /></label>
+          <label className="f span3">Cevat Usta'nın notu<span className="hint">Tanıtıcı ve övücü olsun. İşçilik, fiyat dökümü ya da olumsuz ifade yazmayın.</span><textarea name="ustaNotu" defaultValue={urun?.usta_notu ?? ""} placeholder="Ürünü tanıtan, öven samimi bir söz. Örn: Bu burgu tam bir klasik! Işığı her açıdan yakalar…" /></label>
         </div>
       </section>
 
