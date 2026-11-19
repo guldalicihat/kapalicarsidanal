@@ -138,7 +138,7 @@ export default function ProductForm({ urun, kategoriler, hasKurus, altinKaynak }
           <label className="f">Fırsat bitiş zamanı<input type="datetime-local" name="firsatBitis" defaultValue={yerel(urun?.firsat_bitis ?? null)} /><span className="hint">Sayaç herkes için bu ana sayar</span></label>
           <div className="f" style={{ justifyContent: "flex-end", gap: 10 }}>
             <label className="chk"><input type="checkbox" name="yeni" defaultChecked={urun?.yeni} />Yeni geldi</label>
-            <label className="chk"><input type="checkbox" name="ustaSecimi" defaultChecked={urun?.usta_secimi} />Ustanın seçimi</label>
+            <label className="chk"><input type="checkbox" name="ustaSecimi" defaultChecked={urun?.usta_secimi} />Cevat Usta'nın seçimi (ana sayfada ustanın yüzü ve notuyla çıkar)</label>
           </div>
         </div>
         {ornek && (

@@ -5,6 +5,7 @@ import Icon from "@/components/Icon";
 import DealTimer from "@/components/DealTimer";
 import { getCatalog } from "@/lib/db";
 import { GuvenSeridi } from "@/components/Guvence";
+import UstaSeckisi from "@/components/UstaSeckisi";
 
 const MANIFESTO = [
   { b: "Aracısız", s: "Takı, araya kimse girmeden atölyeden ve toptancıdan sana gelir. Aracı payı fiyata binmez." },
@@ -89,12 +90,7 @@ export default async function Home() {
         </ol>
       </section>
 
-      {secki.length > 0 && (
-        <section className="section" aria-labelledby="sec">
-          <div className="section-head"><h2 id="sec">Ustanın seçkisi</h2><Link href="/kategori/yuzuk">Tümünü gör</Link></div>
-          <div className="grid">{secki.map((p) => <ProductCard key={p.kod} p={p} />)}</div>
-        </section>
-      )}
+      {secki.length > 0 && <UstaSeckisi urunler={secki.slice(0, 6)} toplam={secki.length} />}
 
       <section className="section" aria-labelledby="beg">
         <div className="section-head"><h2 id="beg">En çok beğenilenler</h2>{begenilen.length > 0 && <Link href="/kategori/yuzuk">Tümünü gör</Link>}</div>

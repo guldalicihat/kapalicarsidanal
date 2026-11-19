@@ -450,3 +450,18 @@ body:has(.site-foot) main { padding-bottom: 8px; }
 .guv-legal > div { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
 .guv-legal > div:last-child { border-bottom: 0; }
 #yasal { scroll-margin-top: 90px; }
+
+/* Cevat Usta'nın seçkisi */
+.tag-usta { display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px 3px 3px; }
+.tag-usta img { width: 20px; height: 20px; border-radius: 50%; object-fit: cover; border: 1px solid var(--gold); }
+.us-head { display: flex; gap: 16px; align-items: center; margin-bottom: 16px; }
+.us-face { width: 104px; height: 104px; border-radius: 50%; object-fit: cover; object-position: center 20%; border: 3px solid var(--gold); box-shadow: var(--shadow); flex: none; }
+.us-copy { display: grid; gap: 6px; min-width: 0; }
+.us-copy h2 { margin: 0; font-family: var(--serif); font-size: clamp(24px, 4vw, 32px); color: var(--emerald-2); }
+.us-bubble { position: relative; background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 10px 12px; font-size: 14px; color: var(--ink-2); max-width: 60ch; }
+.us-bubble small { display: block; margin-top: 4px; color: var(--gold-2); font-weight: 600; }
+@media (max-width: 520px) { .us-head { align-items: flex-start; } .us-face { width: 76px; height: 76px; } }
+.card-usta { display: flex; gap: 6px; align-items: flex-start; margin: 6px 0 8px; font-size: 12px; font-style: italic; color: var(--ink-2); line-height: 1.35; }
+.card-usta img { width: 22px; height: 22px; border-radius: 50%; object-fit: cover; flex: none; border: 1px solid var(--gold); }
+.card-usta span { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.usta-rozet { display: table; margin-bottom: 6px; font-size: 11px; font-weight: 700; letter-spacing: .04em; color: var(--gold-2); background: var(--gold-tint); border: 1px solid #e6d3a6; border-radius: 99px; padding: 2px 8px; font-style: normal; }

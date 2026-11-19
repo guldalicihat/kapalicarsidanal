@@ -8,7 +8,9 @@ import { useStore } from "@/lib/useStore";
 import { defaultVariant, firsatPrice, variantPrice, type Product } from "@/lib/catalog";
 import { gram, tl } from "@/lib/pricing";
 
-export default function ProductCard({ p }: { p: Product }) {
+const ilkCumle = (t: string) => (t.match(/^.*?[.!?](\s|$)/)?.[0] ?? t).trim();
+
+export default function ProductCard({ p, usta }: { p: Product; usta?: boolean }) {
   const { fav, toggleFav } = useStore();
   const v = defaultVariant(p);
   const normal = variantPrice(p, v);
@@ -21,7 +23,7 @@ export default function ProductCard({ p }: { p: Product }) {
       </Link>
       {firsat ? <span className="tag tag-sale">Süreli fırsat</span>
         : p.yeni ? <span className="tag tag-new">Yeni</span>
-        : p.ustaSecimi ? <span className="tag tag-usta">Ustanın seçimi</span> : null}
+        : p.ustaSecimi ? <span className="tag tag-usta"><img src="/cevat/portre.jpg" alt="" />Ustanın seçimi</span> : null}
       <button className={`fav${on ? " on" : ""}`} onClick={() => toggleFav(p.kod)} aria-pressed={on} aria-label={on ? "Favorilerden çıkar" : "Favorilere ekle"}>
         <Icon name="heart" size={18} />
       </button>
@@ -34,6 +36,9 @@ export default function ProductCard({ p }: { p: Product }) {
           </span>
         ) : null}
         <span className="spec">{p.ayar} ayar · {p.milyem} · {gram(v.netMg)}{p.pirlanta ? ` · ${p.pirlanta.karat}` : ""}</span>
+        {usta && p.ustaNotu && (
+          <span className="card-usta"><img src="/cevat/portre.jpg" alt="" /><span>“{ilkCumle(p.ustaNotu)}”</span></span>
+        )}
         <span className="price-row">
           <span className="price num">{tl((firsat ?? normal).toplamKurus)}</span>
           {firsat && <span className="price-old num">{tl(normal.toplamKurus)}</span>}

@@ -135,7 +135,7 @@ export default function ProductView({ p, similar }: { p: Product; similar: React
 
           <div className="usta" style={{ marginTop: 18 }}>
             <img className="avatar" src="/cevat/portre.jpg" alt="Cevat Usta" />
-            <div className="bubble">{p.ustaNotu}<small>— Cevat Usta</small></div>
+            <div className="bubble">{p.ustaSecimi && <span className="usta-rozet">Cevat Usta'nın seçimi</span>}{p.ustaNotu}<small>— Cevat Usta</small></div>
           </div>
 
           <UrunGuvenceleri ayar={p.ayar} milyem={p.milyem} gramMetni={gram(v.netMg)} pirlantaSertifika={p.pirlanta?.sertifika ?? undefined} />
