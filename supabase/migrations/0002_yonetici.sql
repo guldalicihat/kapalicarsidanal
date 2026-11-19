@@ -6,7 +6,7 @@ create table if not exists yoneticiler (
   olusturma timestamptz not null default now()
 );
 alter table yoneticiler enable row level security;
-insert into yoneticiler(eposta, ad, rol) values ('guldaliciat@gmail.com', 'İşletme sahibi', 'sahip')
+insert into yoneticiler(eposta, ad, rol) values ('guldalicihat@gmail.com', 'İşletme sahibi', 'sahip')
   on conflict (eposta) do nothing;
 
 alter table urunler add column if not exists guncelleyen text;
