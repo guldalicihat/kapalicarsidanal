@@ -4,8 +4,8 @@ import ProductCard from "./ProductCard";
 import Icon from "./Icon";
 import { defaultVariant, firsatPrice, variantPrice, type Product } from "@/lib/catalog";
 
-type Sort = "onerilen" | "artan" | "azalan" | "yeni" | "gram";
-const SORTS: Record<Sort, string> = { onerilen: "Önerilen", artan: "Fiyat: artan", azalan: "Fiyat: azalan", yeni: "En yeniler", gram: "Gram: hafiften ağıra" };
+type Sort = "onerilen" | "artan" | "azalan" | "yeni" | "gram" | "begeni";
+const SORTS: Record<Sort, string> = { onerilen: "Önerilen", artan: "Fiyat: artan", azalan: "Fiyat: azalan", yeni: "En yeniler", gram: "Gram: hafiften ağıra", begeni: "En çok beğenilen" };
 
 const fiyat = (p: Product) => { const v = defaultVariant(p); return (firsatPrice(p, v) ?? variantPrice(p, v)).toplamKurus; };
 
@@ -31,6 +31,7 @@ export default function Listing({ products, title, initialFirsat = false }: { pr
     if (sort === "artan") l = [...l].sort((a, b) => fiyat(a) - fiyat(b));
     if (sort === "azalan") l = [...l].sort((a, b) => fiyat(b) - fiyat(a));
     if (sort === "yeni") l = [...l].sort((a, b) => Number(!!b.yeni) - Number(!!a.yeni));
+    if (sort === "begeni") l = [...l].sort((a, b) => (b.begeni ?? 0) - (a.begeni ?? 0) || (b.puan ?? 0) - (a.puan ?? 0));
     if (sort === "gram") l = [...l].sort((a, b) => defaultVariant(a).netMg - defaultVariant(b).netMg);
     return l;
   }, [products, ayar, renk, firsat, olcu, stokta, sort]);

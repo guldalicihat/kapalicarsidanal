@@ -1,7 +1,7 @@
 "use server";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { isAdminEmail, requireAdmin } from "@/lib/admin";
 import { serviceClient, sessionClient } from "@/lib/supabase/server";
 
@@ -121,4 +121,25 @@ export async function setGoldPrice(fd: FormData) {
   if (error) redirect("/admin?hata=altin");
   revalidatePath("/", "layout");
   redirect("/admin?altin=1");
+}
+
+// --- Yorum moderasyonu ve geri bildirim durumu ---
+export async function yorumIslem(fd: FormData) {
+  await requireAdmin();
+  const id = Number(fd.get("id")), islem = String(fd.get("islem"));
+  if (!Number.isInteger(id) || id <= 0) return;
+  const db = serviceClient();
+  if (islem === "onayla") await db.from("yorumlar").update({ onayli: true }).eq("id", id);
+  else if (islem === "gizle") await db.from("yorumlar").update({ onayli: false }).eq("id", id);
+  else if (islem === "sil") await db.from("yorumlar").delete().eq("id", id);
+  revalidateTag("ilgi");
+  revalidatePath("/admin/yorumlar");
+}
+
+export async function geriBildirimDurum(fd: FormData) {
+  await requireAdmin();
+  const id = Number(fd.get("id")), durum = String(fd.get("durum"));
+  if (!Number.isInteger(id) || id <= 0 || !["yeni", "okundu", "yapildi"].includes(durum)) return;
+  await serviceClient().from("geri_bildirimler").update({ durum }).eq("id", id);
+  revalidatePath("/admin/geri-bildirim");
 }

@@ -358,3 +358,39 @@ details.acc .content { padding: 0 2px 16px; font-size: 14px; color: var(--ink-2)
 .lira-hint { display: flex; gap: 10px; align-items: center; background: var(--gold-tint); border: 1px solid #e6d3a6; border-radius: 12px; padding: 9px 12px; font-size: 13.5px; color: var(--ink-2); }
 .lira-hint b { color: var(--gold-2); }
 .lira-hint .coin { flex: none; width: 28px; height: 28px; border-radius: 999px; background: linear-gradient(180deg, #f3dc9c, #c99a3c); color: var(--emerald-2); display: grid; place-items: center; font-weight: 700; font-size: 14px; box-shadow: inset 0 0 0 2px rgba(255,255,255,.5); }
+
+/* Puan, beğeni, hizmet bilgileri, yorumlar, geri bildirim */
+.stars { display: inline-flex; gap: 1px; vertical-align: middle; }
+.stars button { border: 0; background: none; padding: 2px; cursor: pointer; line-height: 0; }
+.pd-rating { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 8px; font-size: 13.5px; color: var(--ink-2); text-decoration: none; }
+.pd-rating b { color: var(--ink); }
+.pd-likes { display: inline-flex; align-items: center; gap: 4px; margin-left: 6px; color: var(--sale); }
+.card-social { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--ink-3); }
+.card-social .likes { display: inline-flex; align-items: center; gap: 3px; color: var(--sale); }
+.svc { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 16px; }
+.svc a { display: flex; align-items: center; gap: 8px; padding: 10px; border: 1px solid var(--line); border-radius: 12px; background: var(--paper); color: var(--emerald); text-decoration: none; }
+.svc a span { display: flex; flex-direction: column; font-size: 11.5px; color: var(--ink-3); line-height: 1.25; }
+.svc a b { font-size: 13.5px; color: var(--ink); }
+.svc-detail h4 { display: flex; align-items: center; gap: 8px; margin: 14px 0 4px; font-size: 14.5px; color: var(--ink); }
+.svc-detail h4:first-child { margin-top: 0; }
+.svc-detail p { margin: 4px 0; }
+@media (max-width: 420px) { .svc a { flex-direction: column; text-align: center; gap: 4px; padding: 10px 4px; } .svc a span { align-items: center; } }
+.rv-grid { display: grid; grid-template-columns: 280px 1fr; gap: 16px; align-items: start; }
+@media (max-width: 760px) { .rv-grid { grid-template-columns: 1fr; } }
+.rv-summary { padding: 18px; text-align: center; }
+.rv-big { font-family: var(--serif); font-size: 44px; font-weight: 700; line-height: 1; }
+.rv-bars { margin-top: 12px; display: grid; gap: 4px; text-align: left; }
+.rv-bar { display: grid; grid-template-columns: 14px 1fr 22px; gap: 8px; align-items: center; font-size: 12.5px; }
+.rv-bar i { height: 7px; border-radius: 99px; background: #eee7d8; overflow: hidden; }
+.rv-bar i b { display: block; height: 100%; background: var(--gold-2); }
+.rv-list { display: grid; gap: 10px; }
+.rv-item { padding: 14px 16px; font-size: 14px; }
+.rv-form { padding: 16px; display: grid; gap: 8px; }
+.rv-form .select, .modal textarea { width: 100%; font: inherit; }
+.empty-likes { padding: 18px; display: flex; gap: 14px; align-items: center; }
+.empty-likes p { margin: 0; color: var(--ink-2); font-size: 14.5px; }
+.fb-btn { position: fixed; right: 12px; bottom: calc(var(--bar) + 14px + env(safe-area-inset-bottom)); z-index: 45; display: inline-flex; align-items: center; gap: 6px; border: 0; border-radius: 999px; padding: 9px 14px; background: var(--emerald); color: #fff; font: 600 13px var(--sans, inherit); box-shadow: var(--shadow); cursor: pointer; }
+.pd-page ~ .fb-btn, body:has(.sticky-buy) .fb-btn { bottom: calc(var(--bar) + 92px + env(safe-area-inset-bottom)); }
+@media (min-width: 900px) { .fb-btn { bottom: 20px; } body:has(.sticky-buy) .fb-btn { bottom: 96px; } }
+.modal .chips { flex-wrap: wrap; } .modal .label { font-size: 15px; margin-top: 12px; }
+@media (max-width: 899px) { .fb-btn { width: 44px; height: 44px; padding: 0; justify-content: center; opacity: .92; } .fb-btn span { display: none; } }

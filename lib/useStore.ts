@@ -1,9 +1,10 @@
 "use client";
 // Önizlemede favoriler ve sepet yalnız bu tarayıcıda tutulur (gerçek hesapta sunucuya taşınacak).
 import { useEffect, useState, useCallback } from "react";
+import { begeniAyarla } from "@/app/(magaza)/actions";
 
 type Line = { kod: string; olcu: string; adet: number };
-const KEY = { fav: "ka.fav", cart: "ka.cart" };
+const KEY = { fav: "ka.fav", cart: "ka.cart", cihaz: "ka.cihaz" };
 const EVT = "ka-store";
 
 function read<T>(k: string, d: T): T {
@@ -12,6 +13,15 @@ function read<T>(k: string, d: T): T {
 function write(k: string, v: unknown) {
   try { localStorage.setItem(k, JSON.stringify(v)); } catch { /* gizli pencere */ }
   window.dispatchEvent(new Event(EVT));
+}
+
+/** Bu tarayıcıya özel rastgele kimlik (beğeni/yorum tekrarını önlemek için; kişisel bilgi değil). */
+export function cihazId(): string {
+  try {
+    let id = localStorage.getItem(KEY.cihaz);
+    if (!id) { id = crypto.randomUUID(); localStorage.setItem(KEY.cihaz, id); }
+    return id;
+  } catch { return "gizli-pencere-0000"; }
 }
 
 export function useStore() {
@@ -26,7 +36,9 @@ export function useStore() {
   }, []);
   const toggleFav = useCallback((kod: string) => {
     const cur = read<string[]>(KEY.fav, []);
-    write(KEY.fav, cur.includes(kod) ? cur.filter((k) => k !== kod) : [...cur, kod]);
+    const begendi = !cur.includes(kod);
+    write(KEY.fav, begendi ? [...cur, kod] : cur.filter((k) => k !== kod));
+    begeniAyarla(kod, cihazId(), begendi).catch(() => { /* sayım sonra tutar */ });
   }, []);
   const addToCart = useCallback((kod: string, olcu: string) => {
     const cur = read<Line[]>(KEY.cart, []);

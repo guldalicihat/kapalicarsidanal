@@ -4,7 +4,8 @@ import ProductView from "@/components/ProductView";
 import ProductCard from "@/components/ProductCard";
 import Icon from "@/components/Icon";
 import { PRODUCTS as ORNEK, category } from "@/lib/catalog";
-import { getCatalog } from "@/lib/db";
+import Reviews from "@/components/Reviews";
+import { getCatalog, getYorumlar } from "@/lib/db";
 
 export function generateStaticParams() {
   return ORNEK.map((p) => ({ kod: p.kod }));
@@ -16,6 +17,7 @@ export default async function Urun({ params }: { params: Promise<{ kod: string }
   const p = PRODUCTS.find((x) => x.kod === kod);
   if (!p) notFound();
   const c = category(p.kategori)!;
+  const yorumlar = await getYorumlar(p.kod);
   const benzer = PRODUCTS.filter((x) => x.kategori === p.kategori && x.kod !== p.kod).slice(0, 4);
   const tamamlayici = PRODUCTS.filter((x) => x.kategori !== p.kategori && x.renk === p.renk).slice(0, 4);
   return (
@@ -29,6 +31,7 @@ export default async function Urun({ params }: { params: Promise<{ kod: string }
         p={p}
         similar={
           <>
+            <Reviews kod={p.kod} ad={p.ad} yorumlar={yorumlar} />
             {benzer.length > 0 && (
               <section className="section"><div className="section-head"><h2>Benzer modeller</h2></div>
                 <div className="grid">{benzer.map((x) => <ProductCard key={x.kod} p={x} />)}</div></section>

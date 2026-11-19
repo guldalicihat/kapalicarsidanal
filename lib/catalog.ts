@@ -50,6 +50,9 @@ export type Product = {
   ustaSecimi?: boolean;
   hasKurus?: number; // güncel has altın satış fiyatı (veritabanından)
   fiyatZamani?: string;
+  begeni?: number; // gerçek beğeni sayısı
+  yorumSayisi?: number; // onaylı yorum sayısı
+  puan?: number; // onaylı yorumların ortalaması
 };
 
 const r = (olcu: string, g: number, stok: Stok = "kendi"): Variant => ({ olcu, netMg: Math.round(g * 1000), stok });

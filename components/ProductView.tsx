@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import JewelryArt from "./JewelryArt";
 import Icon from "./Icon";
 import DealTimer from "./DealTimer";
+import Stars from "./Stars";
 import { useStore } from "@/lib/useStore";
 import { STOK_METNI, defaultVariant, firsatPrice, variantPrice, type Product } from "@/lib/catalog";
 import { gram, tl } from "@/lib/pricing";
@@ -30,6 +31,7 @@ export default function ProductView({ p, similar }: { p: Product; similar: React
   const [zoom, setZoom] = useState(false);
   const [rehber, setRehber] = useState(false);
   const [canli, setCanli] = useState(false);
+  const [hizmet, setHizmet] = useState(false);
   const [ilce, setIlce] = useState("");
   const [toast, setToast] = useState("");
   const [saat, setSaat] = useState("");
@@ -83,7 +85,7 @@ export default function ProductView({ p, similar }: { p: Product; similar: React
               </button>
             )}
             {firsat && <span className="tag tag-sale">Süreli fırsat</span>}
-            <button className={`fav${on ? " on" : ""}`} onClick={() => toggleFav(p.kod)} aria-pressed={on} aria-label="Favori"><Icon name="heart" size={18} /></button>
+            <button className={`fav${on ? " on" : ""}`} onClick={() => { toggleFav(p.kod); setToast(on ? "Favorilerden çıkarıldı" : "Favorilere eklendi"); }} aria-pressed={on} aria-label={on ? "Favorilerden çıkar" : "Favorilere ekle"}><Icon name="heart" size={18} /></button>
           </div>
           <div className="thumbs">
             {thumbs.map((t, i) => <button key={i} className={view === i ? "on" : ""} onClick={() => { setView(i); setZoom(false); }} aria-label={`Görsel ${i + 1}`}>{t}</button>)}
@@ -94,6 +96,11 @@ export default function ProductView({ p, similar }: { p: Product; similar: React
           <span className="eyebrow">{p.ayar} ayar · {p.renk}{p.pirlanta ? " · Pırlanta" : ""}</span>
           <h1>{p.ad}</h1>
           <div className="pd-code">Ürün kodu {p.kod}</div>
+          <a href="#yorumlar" className="pd-rating">
+            {p.yorumSayisi ? (<><Stars deger={p.puan ?? 0} size={15} /><b className="num">{(p.puan ?? 0).toLocaleString("tr-TR")}</b><span>· {p.yorumSayisi} değerlendirme</span></>)
+              : (<><Stars deger={0} size={15} /><span>İlk değerlendirmeyi sen yap</span></>)}
+            {p.begeni ? <span className="pd-likes"><Icon name="heart" size={14} />{p.begeni} kişi favoriledi</span> : null}
+          </a>
           <div className="pd-price">
             <span className="price num">{tl(fiyat.toplamKurus)}</span>
             {firsat && <span className="price-old num">{tl(normal.toplamKurus)}</span>}
@@ -130,6 +137,12 @@ export default function ProductView({ p, similar }: { p: Product; similar: React
             <div className="bubble">{p.ustaNotu}<small>— Cevat Usta</small></div>
           </div>
 
+          <div className="svc">
+            <a href="#hizmet" onClick={() => setHizmet(true)}><Icon name="card" size={20} /><span><b>Taksit</b>Kartına göre</span></a>
+            <a href="#hizmet" onClick={() => setHizmet(true)}><Icon name="truck" size={20} /><span><b>Kargo</b>Takip numaralı</span></a>
+            <a href="#hizmet" onClick={() => setHizmet(true)}><Icon name="shield" size={20} /><span><b>Sigorta</b>Kapına kadar</span></a>
+          </div>
+
           <div style={{ marginTop: 18 }}>
             <details className="acc">
               <summary><Icon name="info" /><span className="grow">Ürün bilgileri</span><span className="chev"><Icon name="down" size={18} /></span></summary>
@@ -146,21 +159,30 @@ export default function ProductView({ p, similar }: { p: Product; similar: React
                 )}
               </div>
             </details>
-            <details className="acc">
-              <summary><Icon name="truck" /><span className="grow">Teslimat, iade ve bakım</span><span className="chev"><Icon name="down" size={18} /></span></summary>
-              <div className="content">
+            <details className="acc" id="hizmet" open={hizmet} onToggle={(e) => setHizmet((e.target as HTMLDetailsElement).open)}>
+              <summary><Icon name="truck" /><span className="grow">Taksit, kargo ve sigorta</span><span className="chev"><Icon name="down" size={18} /></span></summary>
+              <div className="content svc-detail">
+                <h4><Icon name="card" size={17} />Taksit</h4>
+                <p>Kredi kartına taksit seçenekleri, ödeme adımında kartına ve bankana göre gösterilir. Gram altın ve sikke (çeyrek, yarım, tam) alımlarında mevzuat gereği taksit yapılamaz; takılarda taksit, yasal sınırlar içinde bankanın sunduğu kadar yapılır.</p>
+                <h4><Icon name="truck" size={17} />Kargo ve kurye</h4>
                 <label htmlFor="ilce" className="note">Teslimat ilçeni seç</label>
                 <select id="ilce" className="select" style={{ width: "100%", marginTop: 6 }} value={ilce} onChange={(e) => setIlce(e.target.value)}>
                   <option value="">İlçe seç</option>
                   {ILCELER.map((i) => <option key={i}>{i}</option>)}
                 </select>
                 {delivery && <p style={{ marginBottom: 0, color: "var(--emerald-2)", fontWeight: 600 }}>{delivery}</p>}
-                <p>İade ve cayma koşulları, ön bilgilendirme formunda yer alacak. Altın takıyı yumuşak bir bezle silin; parfüm ve klordan uzak tutun.</p>
+                <p>Takın özel, mühürlü kutuda; takip numarasıyla gönderilir. İstanbul'da kurye ile elden teslim seçeneği vardır.</p>
+                <h4><Icon name="shield" size={17} />Sigorta</h4>
+                <p>Takın, gönderildiği andan eline ulaşana kadar sigortalıdır. Yolda kaybolur ya da zarar görürse bedeli sana ödenir ya da yenisi gönderilir.</p>
+                <h4><Icon name="check" size={17} />İade ve bakım</h4>
+                <p>İade ve cayma koşulları ön bilgilendirme formunda yer alır. Altın takıyı yumuşak bir bezle silin; parfüm ve klordan uzak tutun.</p>
+                <p className="note" style={{ marginBottom: 0 }}>Önizleme: taksit sayısı, kargo ücreti ve sigorta şartları banka ve kargo anlaşmalarıyla kesinleşecek.</p>
               </div>
             </details>
           </div>
 
           <div className="actions-mini">
+            <button className={`btn btn-sm ${on ? "btn-gold" : "btn-ghost"}`} onClick={() => { toggleFav(p.kod); setToast(on ? "Favorilerden çıkarıldı" : "Favorilere eklendi"); }} aria-pressed={on}><Icon name="heart" size={17} />{on ? "Favorilerimde" : "Favorilere ekle"}</button>
             <button className="btn btn-ghost btn-sm" onClick={share}><Icon name="share" size={17} />Paylaş</button>
             <button className="btn btn-ghost btn-sm" onClick={copyWa}><Icon name="chat" size={17} />WhatsApp'tan sor</button>
             <button className="btn btn-ghost btn-sm" onClick={() => setCanli(true)}><Icon name="video" size={17} />Canlı görmek istiyorum</button>

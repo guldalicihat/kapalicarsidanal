@@ -48,10 +48,41 @@ export async function getCatalog(): Promise<Catalog> {
       headers: { apikey: KEY, Authorization: `Bearer ${KEY}` }, next: { revalidate: 60 },
     });
     const altin = a.ok ? ((await a.json()) as { has_satis_kurus: number; zaman: string }[])[0] : undefined;
-    const products = rows.map((r) => ({ ...toProduct(r), hasKurus: altin?.has_satis_kurus, fiyatZamani: altin?.zaman }));
+    const ilgi = await getIlgi();
+    const products = rows.map((r) => ({ ...toProduct(r), hasKurus: altin?.has_satis_kurus, fiyatZamani: altin?.zaman, ...ilgi[r.kod] }));
     return { categories: CATEGORIES, products, kaynak: "veritabani" };
   } catch (e) {
     console.error("[katalog] veritabanı okunamadı, örnek katalog kullanılıyor:", e instanceof Error ? e.message : e);
     return { categories: CATEGORIES, products: PRODUCTS, kaynak: "ornek" };
   }
+}
+
+type Ilgi = { begeni: number; yorumSayisi: number; puan?: number };
+
+/** Beğeni ve onaylı yorum sayıları — gerçek kayıtlardan; yoksa boş. */
+async function getIlgi(): Promise<Record<string, Ilgi>> {
+  const gizli = process.env.SUPABASE_SECRET_KEY;
+  if (!URL_ || !gizli) return {};
+  try {
+    const r = await fetch(`${URL_}/rest/v1/urun_ilgi?select=kod,begeni,yorum,puan`, {
+      headers: { apikey: gizli, Authorization: `Bearer ${gizli}` }, next: { revalidate: 60, tags: ["ilgi"] },
+    });
+    if (!r.ok) return {};
+    const rows = (await r.json()) as { kod: string; begeni: number; yorum: number; puan: number | null }[];
+    return Object.fromEntries(rows.map((x) => [x.kod, { begeni: x.begeni, yorumSayisi: x.yorum, puan: x.puan ?? undefined }]));
+  } catch { return {}; }
+}
+
+export type Yorum = { id: number; ad: string; puan: number; metin: string; olusturma: string };
+
+/** Ürünün onaylı yorumları (en yeni üstte). */
+export async function getYorumlar(kod: string): Promise<Yorum[]> {
+  const gizli = process.env.SUPABASE_SECRET_KEY;
+  if (!URL_ || !gizli || !/^[A-Z0-9-]{3,20}$/.test(kod)) return [];
+  try {
+    const r = await fetch(`${URL_}/rest/v1/yorumlar?select=id,ad,puan,metin,olusturma&urun_kod=eq.${kod}&onayli=eq.true&order=olusturma.desc&limit=50`, {
+      headers: { apikey: gizli, Authorization: `Bearer ${gizli}` }, next: { revalidate: 60, tags: ["ilgi"] },
+    });
+    return r.ok ? ((await r.json()) as Yorum[]) : [];
+  } catch { return []; }
 }

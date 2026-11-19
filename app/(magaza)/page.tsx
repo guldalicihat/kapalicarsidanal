@@ -17,6 +17,8 @@ export default async function Home() {
   const firsatlar = PRODUCTS.filter((p) => p.firsat);
   const secki = PRODUCTS.filter((p) => p.ustaSecimi);
   const yeniler = PRODUCTS.filter((p) => p.yeni);
+  const begenilen = PRODUCTS.filter((p) => (p.begeni ?? 0) > 0 || (p.yorumSayisi ?? 0) > 0)
+    .sort((a, b) => (b.begeni ?? 0) - (a.begeni ?? 0) || (b.puan ?? 0) - (a.puan ?? 0)).slice(0, 8);
   const enYakin = firsatlar.map((p) => p.firsat?.bitis).filter(Boolean).sort()[0];
   return (
     <div className="shell">
@@ -90,6 +92,18 @@ export default async function Home() {
           <div className="grid">{secki.map((p) => <ProductCard key={p.kod} p={p} />)}</div>
         </section>
       )}
+
+      <section className="section" aria-labelledby="beg">
+        <div className="section-head"><h2 id="beg">En çok beğenilenler</h2>{begenilen.length > 0 && <Link href="/kategori/yuzuk">Tümünü gör</Link>}</div>
+        {begenilen.length > 0 ? (
+          <div className="grid">{begenilen.map((p) => <ProductCard key={p.kod} p={p} />)}</div>
+        ) : (
+          <div className="panel empty-likes">
+            <Icon name="heart" size={26} stroke="var(--sale)" />
+            <p><b>Beğendiğin takının kalbine dokun.</b> Ziyaretçilerin en çok favorilediği ve en yüksek puan verdiği takılar burada sıralanır.</p>
+          </div>
+        )}
+      </section>
 
       <section className="section">
         <div className="bargain-band">

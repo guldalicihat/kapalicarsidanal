@@ -3,6 +3,7 @@ import Link from "next/link";
 import JewelryArt from "./JewelryArt";
 import Icon from "./Icon";
 import DealTimer from "./DealTimer";
+import Stars from "./Stars";
 import { useStore } from "@/lib/useStore";
 import { defaultVariant, firsatPrice, variantPrice, type Product } from "@/lib/catalog";
 import { gram, tl } from "@/lib/pricing";
@@ -26,6 +27,12 @@ export default function ProductCard({ p }: { p: Product }) {
       </button>
       <Link href={`/urun/${p.kod}`} className="body">
         <span className="name">{p.ad}</span>
+        {(p.yorumSayisi || p.begeni) ? (
+          <span className="card-social">
+            {p.yorumSayisi ? <><Stars deger={p.puan ?? 0} size={12} /><span className="num">{(p.puan ?? 0).toLocaleString("tr-TR")} ({p.yorumSayisi})</span></> : null}
+            {p.begeni ? <span className="likes"><Icon name="heart" size={12} />{p.begeni}</span> : null}
+          </span>
+        ) : null}
         <span className="spec">{p.ayar} ayar · {p.milyem} · {gram(v.netMg)}{p.pirlanta ? ` · ${p.pirlanta.karat}` : ""}</span>
         <span className="price-row">
           <span className="price num">{tl((firsat ?? normal).toplamKurus)}</span>
