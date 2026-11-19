@@ -7,7 +7,7 @@ import Icon from "./Icon";
 import DealTimer from "./DealTimer";
 import { useStore } from "@/lib/useStore";
 import { STOK_METNI, defaultVariant, firsatPrice, variantPrice, type Product } from "@/lib/catalog";
-import { ORNEK_HAS_ALTIN_KURUS, gram, tl } from "@/lib/pricing";
+import { gram, tl } from "@/lib/pricing";
 
 const ILCELER = ["Kadıköy", "Beşiktaş", "Şişli", "Üsküdar", "Fatih", "Bakırköy", "Ataşehir", "Esenyurt", "Pendik", "Sarıyer", "İstanbul dışı"];
 const UZAK = new Set(["Esenyurt", "Pendik", "Sarıyer"]);
@@ -131,19 +131,6 @@ export default function ProductView({ p, similar }: { p: Product; similar: React
           </div>
 
           <div style={{ marginTop: 18 }}>
-            <details className="acc" open>
-              <summary><Icon name="coin" /><span className="grow">Fiyat nasıl oluşuyor?</span><span className="chev"><Icon name="down" size={18} /></span></summary>
-              <div className="content">
-                <table className="breakdown"><tbody>
-                  <tr><td>İçindeki altın ({gram(v.netMg)} × {p.milyem}‰)</td><td>{tl(fiyat.altinKurus)}</td></tr>
-                  {p.pirlanta && <tr><td>Pırlanta</td><td>{tl(fiyat.tasKurus)}</td></tr>}
-                  <tr><td>Hizmet ve vergiler</td><td>{tl(normal.toplamKurus - normal.altinKurus - normal.tasKurus)}</td></tr>
-                  {firsat && <tr><td>Fırsat indirimi</td><td>−{tl(normal.toplamKurus - firsat.toplamKurus)}</td></tr>}
-                  <tr className="total"><td>Toplam</td><td>{tl(fiyat.toplamKurus)}</td></tr>
-                </tbody></table>
-                <p className="note" style={{ marginTop: 8 }}>Örnek hesap: has altın {tl(ORNEK_HAS_ALTIN_KURUS, true)}/g. Gerçek formül işletme ve mali müşavirle kesinleşecek.</p>
-              </div>
-            </details>
             <details className="acc">
               <summary><Icon name="info" /><span className="grow">Ürün bilgileri</span><span className="chev"><Icon name="down" size={18} /></span></summary>
               <div className="content">
