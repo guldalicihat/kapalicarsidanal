@@ -6,10 +6,10 @@ import DealTimer from "@/components/DealTimer";
 import { getCatalog } from "@/lib/db";
 
 const MANIFESTO = [
-  { b: "Dükkân kirası yok", s: "Kapalıçarşı'da bir tezgâhın kirası fiyatın içine biner. Bizde binmez." },
-  { b: "Vitrin masrafı yok", s: "Işıklı vitrin, süsleme, kalabalık personel… Bu giderler senin cebinden çıkmaz." },
-  { b: "Aracı yok", s: "Takılar doğrudan üretici atölyelerden ve toptancılardan gelir." },
-  { b: "Çarşının çeşidi tek ekranda", s: "Onlarca dükkânı tek tek gezmeden, toptancı kataloglarının tamamından seç." },
+  { b: "Aracısız", s: "Takı, araya kimse girmeden atölyeden ve toptancıdan sana gelir. Aracı payı fiyata binmez." },
+  { b: "Atölyeden", s: "Kapalıçarşı'nın üretici atölyelerinde yapılan modeller, ilk elden." },
+  { b: "Toptancıdan", s: "Kuyum toptancılarının kataloglarından, toptan fiyatına yakın alım." },
+  { b: "Çarşının çeşidi tek ekranda", s: "Çarşıyı tek tek gezmeden, toptancı kataloglarının tamamından seç." },
 ];
 
 export default async function Home() {
@@ -24,8 +24,8 @@ export default async function Home() {
         <img src="/cevat/hos-geldin.jpg" alt="Cevat Usta, Kapalıçarşı'daki tezgâhında müşterisini karşılıyor" />
         <div className="copy">
           <span className="eyebrow" style={{ color: "#d9b96c" }}>Kapalıçarşıdan Al</span>
-          <h1>Çarşının çeşidi,<br />dükkân masrafı olmadan.</h1>
-          <p className="lead-copy">Atölyeden ve toptancıdan doğrudan kapına. Kira, vitrin ve aracı payı fiyata binmez.</p>
+          <h1>Atölyeden, toptancıdan,<br />aracısız.</h1>
+          <p className="lead-copy">Kapalıçarşı'nın çeşidi, ilk elden kapına. Aracı payı fiyata binmez.</p>
           <div className="cta">
             {firsatlar.length > 0 && <a href="#firsat" className="btn btn-gold">Süreli fırsatlar <Icon name="clock" size={18} /></a>}
             <Link href="/kategori/yuzuk" className="btn btn-outline">Takıları keşfet</Link>
@@ -70,8 +70,8 @@ export default async function Home() {
       <section className="section manifesto" aria-labelledby="man">
         <div className="man-copy">
           <span className="eyebrow">Neden daha uygun?</span>
-          <h2 id="man">Kuyumcu dükkânının masrafını sen ödeme.</h2>
-          <p>Kapalıçarşı'da aynı takı, dükkân masraflarıyla birlikte satılır. Biz dükkân tutmuyoruz; takıyı atölyeden ve toptancıdan alıp sigortalı olarak kapına getiriyoruz. Aradaki fark senin cebinde kalır.</p>
+          <h2 id="man">Aracısız, ilk elden.</h2>
+          <p>Takıyı Kapalıçarşı'nın atölyelerinden ve kuyum toptancılarından alıp, araya kimse girmeden sigortalı olarak kapına getiriyoruz. Aracı payı olmadığı için fiyat avantajı senin cebinde kalır.</p>
           <div className="usta" style={{ marginTop: 16 }}>
             <img className="avatar" src="/cevat/isinin-ehli.jpg" alt="" />
             <div className="bubble">Çeşit bende, karar sende. Beğendiğine teklif ver, patrona ileteyim.<small>— Cevat Usta</small></div>
