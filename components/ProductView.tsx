@@ -166,7 +166,7 @@ export default function ProductView({ p, similar }: { p: Product; similar: React
             <button className="btn btn-ghost btn-sm" onClick={() => setCanli(true)}><Icon name="video" size={17} />Canlı görmek istiyorum</button>
             <Link className="btn btn-ghost btn-sm" href={`/sepet?hediye=${p.kod}`}><Icon name="gift" size={17} />Hediye olarak gönder</Link>
           </div>
-          <p className="note" style={{ marginTop: 10 }}>Bu alışverişten yaklaşık <b>{tl(kazanilacak)}</b> Altın Lira kazanırsın (örnek oran %1, kesinleşmedi).</p>
+          <p className="note" style={{ marginTop: 10 }}>Bu alışverişten <b>{tl(kazanilacak)}</b> Altın Lira kazanırsın; bir sonraki alışverişinde kullanırsın.</p>
         </div>
       </div>
 

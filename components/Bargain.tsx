@@ -68,6 +68,7 @@ export default function Bargain({ p, olcu }: { p: Product; olcu: string }) {
             <div><div className="note">Anlaşılan fiyat</div><div className="big num">{tl(s.anlasilan!)}</div></div>
             <div className="timer"><Icon name="clock" />Ödeme için kalan süre <Countdown until={bitis} onEnd={() => setSureDoldu(true)} /></div>
             <div className="auto-note"><Icon name="lock" size={14} />Ürün ve fiyat bu süre boyunca senin için ayrıldı.</div>
+            <div className="lira-hint"><span className="coin">₺</span><span>Bu alışverişle <b>{tl(Math.floor(s.anlasilan! / 100))}</b> Altın Lira kazanacaksın; bir sonraki alışverişinde kullanabilirsin.</span></div>
             <Link className="btn btn-primary btn-block" href={`/sepet?pazarlik=${p.kod}&olcu=${encodeURIComponent(v.olcu)}&tutar=${s.anlasilan}`}>Ödemeye geç <Icon name="chevron" size={18} /></Link>
             <p className="note" style={{ margin: 0 }}>Önizleme: gerçek sistemde süre ve ayırma sunucuda tutulur; süre dolunca ödeme durumu kontrol edilmeden ürün serbest bırakılmaz.</p>
           </div>
@@ -107,6 +108,12 @@ export default function Bargain({ p, olcu }: { p: Product; olcu: string }) {
 
         {acik && !bekle && (
           <>
+            {(() => {
+              const t = Number(giris.replace(/\D/g, "")) * 100 || liste;
+              return (
+                <div className="lira-hint"><span className="coin">₺</span><span>Bu alışverişten <b>{tl(Math.floor(t / 100))}</b> Altın Lira kazanırsın; bir sonraki alışverişinde kullanırsın.</span></div>
+              );
+            })()}
             <div className="offer">
               <label className="money" htmlFor="teklif">
                 <input id="teklif" inputMode="numeric" placeholder={new Intl.NumberFormat("tr-TR").format(Math.round(liste / 100 * 0.94 / 50) * 50)}

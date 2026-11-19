@@ -114,9 +114,8 @@ export default async function Home() {
           <div className="panel">
             <Icon name="coin" size={30} stroke="var(--gold-2)" />
             <div>
-              <span className="soon">Yakında</span>
-              <h3>Altın Lira</h3>
-              <p>Her alışverişte puan kazan, sonraki alışverişinde kullan. Şartlar açılışta duyurulacak.</p>
+              <h3>Her alışverişte %1 Altın Lira</h3>
+              <p>Aldığın her takının %1'i Altın Lira olarak hesabına geçer; bir sonraki alışverişinde indirim olarak kullanırsın.</p>
             </div>
           </div>
           <div className="panel">

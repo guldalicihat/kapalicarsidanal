@@ -78,9 +78,10 @@ export default function Cart() {
       <div className="panel sum">
         <div className="r"><span>Ara toplam</span><span className="num">{tl(ara)}</span></div>
         <div className="r"><span>Sigortalı teslimat</span><span>Adrese göre</span></div>
-        <div className="r"><span>Altın Lira</span><span className="pend">Yakında</span></div>
+        <div className="r"><span>Kazanacağın Altın Lira</span><span className="pos num">+{tl(Math.floor(ara / 100))}</span></div>
         <div className="r t"><span>Toplam</span><span className="num">{tl(ara)}</span></div>
         <button className="btn btn-primary btn-block" onClick={() => setGonder(true)}>Güvenli ödemeye geç <Icon name="lock" size={18} /></button>
+        <div className="lira-hint" style={{ margin: 0 }}><span className="coin">₺</span><span>Siparişin teslim edilince <b>{tl(Math.floor(ara / 100))}</b> Altın Lira hesabına eklenir; bir sonraki alışverişinde kullanırsın.</span></div>
         <p className="note" style={{ margin: 0 }}>Ödeme öncesi ön bilgilendirme formu ve mesafeli satış sözleşmesi gösterilecek. Tutarlar örnektir.</p>
       </div>
     </div>
