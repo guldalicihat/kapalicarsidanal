@@ -24,8 +24,8 @@ export default async function Home() {
         <img src="/cevat/hos-geldin.jpg" alt="Cevat Usta, Kapalıçarşı'daki tezgâhında müşterisini karşılıyor" />
         <div className="copy">
           <span className="eyebrow" style={{ color: "#d9b96c" }}>Kapalıçarşıdan Al</span>
-          <h1>Atölyeden, toptancıdan,<br />aracısız.</h1>
-          <p className="lead-copy">Kapalıçarşı'nın çeşidi, ilk elden kapına. Aracı payı fiyata binmez.</p>
+          <h1>Çarşıdan aracısız.</h1>
+          <p className="lead-copy">Kapalıçarşı'nın atölyelerinden ve toptancılarından, ilk elden kapına. Aracı payı fiyata binmez.</p>
           <div className="cta">
             {firsatlar.length > 0 && <a href="#firsat" className="btn btn-gold">Süreli fırsatlar <Icon name="clock" size={18} /></a>}
             <Link href="/kategori/yuzuk" className="btn btn-outline">Takıları keşfet</Link>
