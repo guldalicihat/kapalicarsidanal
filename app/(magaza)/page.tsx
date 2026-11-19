@@ -5,25 +5,55 @@ import Icon from "@/components/Icon";
 import DealTimer from "@/components/DealTimer";
 import { getCatalog } from "@/lib/db";
 
+const MANIFESTO = [
+  { b: "Dükkân kirası yok", s: "Kapalıçarşı'da bir tezgâhın kirası fiyatın içine biner. Bizde binmez." },
+  { b: "Vitrin masrafı yok", s: "Işıklı vitrin, süsleme, kalabalık personel… Bu giderler senin cebinden çıkmaz." },
+  { b: "Aracı yok", s: "Takılar doğrudan üretici atölyelerden ve toptancılardan gelir." },
+  { b: "Çarşının çeşidi tek ekranda", s: "Onlarca dükkânı tek tek gezmeden, toptancı kataloglarının tamamından seç." },
+];
+
 export default async function Home() {
   const { categories: CATEGORIES, products: PRODUCTS } = await getCatalog();
   const firsatlar = PRODUCTS.filter((p) => p.firsat);
   const secki = PRODUCTS.filter((p) => p.ustaSecimi);
   const yeniler = PRODUCTS.filter((p) => p.yeni);
+  const enYakin = firsatlar.map((p) => p.firsat?.bitis).filter(Boolean).sort()[0];
   return (
     <div className="shell">
-      <section className="hero">
+      <section className="hero hero-promise">
         <img src="/cevat/hos-geldin.jpg" alt="Cevat Usta, Kapalıçarşı'daki tezgâhında müşterisini karşılıyor" />
         <div className="copy">
-          <span className="eyebrow" style={{ color: "#d9b96c" }}>Cevat Usta karşılıyor</span>
-          <h1>Çarşıya hoş geldin.</h1>
-          <p className="tagline">“Ürünü anlatırım, pazarlığı sana bırakırım.”</p>
+          <span className="eyebrow" style={{ color: "#d9b96c" }}>Kapalıçarşıdan Al</span>
+          <h1>Çarşının çeşidi,<br />dükkân masrafı olmadan.</h1>
+          <p className="lead-copy">Atölyeden ve toptancıdan doğrudan kapına. Kira, vitrin ve aracı payı fiyata binmez.</p>
           <div className="cta">
-            <Link href="/kategori/yuzuk" className="btn btn-gold">Takıları keşfet <Icon name="chevron" size={18} /></Link>
-            <Link href="/pazarlik" className="btn btn-outline">Pazarlık nasıl olur?</Link>
+            {firsatlar.length > 0 && <a href="#firsat" className="btn btn-gold">Süreli fırsatlar <Icon name="clock" size={18} /></a>}
+            <Link href="/kategori/yuzuk" className="btn btn-outline">Takıları keşfet</Link>
           </div>
+          <p className="tagline">“Ürünü anlatırım, pazarlığı sana bırakırım.” — Cevat Usta</p>
         </div>
       </section>
+
+      <div className="promise-strip">
+        <div><Icon name="gem" /><span><b>Geniş çeşit</b>Toptancı kataloglarından</span></div>
+        <div><Icon name="coin" /><span><b>Güncel altın fiyatı</b>15 dakikada bir</span></div>
+        <div><Icon name="hand" /><span><b>Pazarlık var</b>Teklifini patrona ilet</span></div>
+        <div><Icon name="truck" /><span><b>Sigortalı teslimat</b>Takip numarasıyla</span></div>
+      </div>
+
+      {firsatlar.length > 0 && (
+        <section className="section deals" id="firsat" aria-labelledby="fir">
+          <div className="deals-head">
+            <div>
+              <span className="eyebrow" style={{ color: "#f1dca7" }}>Süreli fırsatlar</span>
+              <h2 id="fir">Süre bitmeden yakala</h2>
+              <p>Süre dolunca fiyat normale döner. Sayaç herkes için aynı.</p>
+            </div>
+            <div className="deals-timer"><DealTimer label="En yakın bitiş" bitis={enYakin} /></div>
+          </div>
+          <div className="rail">{firsatlar.map((p) => <div className="rail-item" key={p.kod}><ProductCard p={p} /></div>)}</div>
+        </section>
+      )}
 
       <section className="section" aria-labelledby="kat">
         <div className="section-head"><h2 id="kat">Ne arıyorsun?</h2></div>
@@ -37,35 +67,47 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="section" aria-labelledby="fir">
-        <div className="section-head"><h2 id="fir">Süreli fırsatlar</h2><Link href="/kategori/yuzuk?firsat=1">Tümü</Link></div>
-        <div className="deal-head">
-          <p><strong>Süre dolunca fiyat normale döner.</strong> Her ürünün sayacı kendi bitiş saatine sayar.</p>
-          <DealTimer />
+      <section className="section manifesto" aria-labelledby="man">
+        <div className="man-copy">
+          <span className="eyebrow">Neden daha uygun?</span>
+          <h2 id="man">Kuyumcu dükkânının masrafını sen ödeme.</h2>
+          <p>Kapalıçarşı'da aynı takı, dükkân masraflarıyla birlikte satılır. Biz dükkân tutmuyoruz; takıyı atölyeden ve toptancıdan alıp sigortalı olarak kapına getiriyoruz. Aradaki fark senin cebinde kalır.</p>
+          <div className="usta" style={{ marginTop: 16 }}>
+            <img className="avatar" src="/cevat/isinin-ehli.jpg" alt="" />
+            <div className="bubble">Çeşit bende, karar sende. Beğendiğine teklif ver, patrona ileteyim.<small>— Cevat Usta</small></div>
+          </div>
         </div>
-        <div className="grid">{firsatlar.map((p) => <ProductCard key={p.kod} p={p} />)}</div>
+        <ol className="man-list">
+          {MANIFESTO.map((m, i) => (
+            <li key={m.b}><span className="n">{i + 1}</span><span><b>{m.b}</b>{m.s}</span></li>
+          ))}
+        </ol>
       </section>
+
+      {secki.length > 0 && (
+        <section className="section" aria-labelledby="sec">
+          <div className="section-head"><h2 id="sec">Ustanın seçkisi</h2><Link href="/kategori/yuzuk">Tümünü gör</Link></div>
+          <div className="grid">{secki.map((p) => <ProductCard key={p.kod} p={p} />)}</div>
+        </section>
+      )}
 
       <section className="section">
         <div className="bargain-band">
           <img src="/cevat/pazarlik.jpg" alt="" />
           <div>
-            <h3>Beğendiğin takıya teklif ver.</h3>
-            <p>Teklifini patrona iletirim. Anlaşırsanız ürün 15 dakika senin için ayrılır.</p>
+            <h3>Fiyatta anlaşalım.</h3>
+            <p>Beğendiğin takıya teklif ver; patron kabul eder ya da karşı teklif yapar. Anlaşınca ürün 15 dakika senin için ayrılır.</p>
             <Link href="/pazarlik" className="btn btn-gold btn-sm">Pazarlık nasıl olur? <Icon name="chevron" size={16} /></Link>
           </div>
         </div>
       </section>
 
-      <section className="section" aria-labelledby="sec">
-        <div className="section-head"><h2 id="sec">Ustanın seçkisi</h2><Link href="/kategori/yuzuk">Tümünü gör</Link></div>
-        <div className="grid">{secki.map((p) => <ProductCard key={p.kod} p={p} />)}</div>
-      </section>
-
-      <section className="section" aria-labelledby="yen">
-        <div className="section-head"><h2 id="yen">Yeni gelenler</h2></div>
-        <div className="grid">{yeniler.map((p) => <ProductCard key={p.kod} p={p} />)}</div>
-      </section>
+      {yeniler.length > 0 && (
+        <section className="section" aria-labelledby="yen">
+          <div className="section-head"><h2 id="yen">Yeni gelenler</h2></div>
+          <div className="grid">{yeniler.map((p) => <ProductCard key={p.kod} p={p} />)}</div>
+        </section>
+      )}
 
       <section className="section">
         <div className="duo">
@@ -74,14 +116,14 @@ export default async function Home() {
             <div>
               <span className="soon">Yakında</span>
               <h3>Altın Lira</h3>
-              <p>Her alışverişte puan kazan, sonraki alışverişinde kullan. Oranlar ve şartlar açılışta duyurulacak.</p>
+              <p>Her alışverişte puan kazan, sonraki alışverişinde kullan. Şartlar açılışta duyurulacak.</p>
             </div>
           </div>
           <div className="panel">
             <Icon name="chat" size={30} stroke="var(--emerald)" />
             <div>
               <h3>Takıldığın yerde Cevat Usta'ya sor</h3>
-              <p>Ürün kodu ve ölçünle birlikte WhatsApp'tan yaz; ölçü, gram ve işçiliği anlatalım.</p>
+              <p>Ürün kodu ve ölçünle WhatsApp'tan yaz; ölçü, gram ve modeli anlatalım.</p>
             </div>
           </div>
         </div>
@@ -94,7 +136,7 @@ export default async function Home() {
           <div><Icon name="lock" /><span><b>Güvenli ödeme</b>3D Secure, kart bilgin bizde tutulmaz.</span></div>
           <div><Icon name="check" /><span><b>Ayar garantisi</b>Damgalı, faturalı ürün.</span></div>
         </div>
-        <p className="demo-note">Tasarım örneği · Ürünler, görseller ve fiyatlar temsilidir</p>
+        <p className="demo-note">Tasarım önizlemesi · Ürünler ve görseller temsilidir</p>
       </section>
     </div>
   );

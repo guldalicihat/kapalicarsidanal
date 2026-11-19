@@ -323,3 +323,35 @@ details.acc .content { padding: 0 2px 16px; font-size: 14px; color: var(--ink-2)
 .card-timer { display: block; margin-top: 6px; }
 .card-timer > span { font-size: 11.5px !important; gap: 5px !important; }
 .card-timer .countdown span { font-size: 12px; padding: 1px 5px; min-width: 24px; }
+
+/* Ana sayfa: vaat, fırsat şeridi, manifesto */
+.hero-promise { min-height: 380px; }
+@media (max-width: 640px) { .hero-promise .copy { margin-top: -40px; } .hero-promise img { height: 250px; } }
+.hero-promise h1 { font-size: clamp(30px, 5.4vw, 50px); }
+.hero-promise .lead-copy { margin: 0; color: #dfeae4; font-size: clamp(15px, 2.2vw, 17px); max-width: 40ch; }
+.hero-promise .tagline { font-size: 14px; margin-top: 4px; }
+.promise-strip { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; margin-top: 12px; background: var(--paper); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+.promise-strip > div { display: flex; gap: 10px; align-items: center; padding: 12px 14px; font-size: 12.5px; color: var(--ink-3); }
+.promise-strip > div + div { border-left: 1px solid var(--line); }
+.promise-strip b { display: block; color: var(--ink); font-size: 13.5px; }
+.promise-strip svg { color: var(--gold-2); flex: none; }
+@media (max-width: 760px) { .promise-strip { grid-template-columns: 1fr 1fr; } .promise-strip > div:nth-child(3) { border-left: 0; } .promise-strip > div:nth-child(n+3) { border-top: 1px solid var(--line); } }
+.deals { background: var(--emerald-2); border-radius: 20px; padding: 20px 0 18px; color: #fff; }
+.deals-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; flex-wrap: wrap; padding: 0 18px 14px; }
+.deals-head h2 { color: #fff; font-size: clamp(22px, 4vw, 30px); margin-top: 4px; }
+.deals-head p { margin: 4px 0 0; color: #cfe0d7; font-size: 13.5px; }
+.deals-timer > span { color: #cfe0d7 !important; }
+.deals-timer .countdown span { background: #f1dca7; color: var(--emerald-2); font-size: 18px; padding: 4px 8px; }
+.rail { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(170px, 46%); gap: 12px; overflow-x: auto; padding: 0 18px 6px; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.rail::-webkit-scrollbar { display: none; }
+.rail-item { scroll-snap-align: start; }
+.rail .card { color: var(--ink); height: 100%; }
+@media (min-width: 900px) { .rail { grid-auto-columns: minmax(200px, 1fr); } }
+.manifesto { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; background: var(--paper); border: 1px solid var(--line); border-radius: 20px; padding: 24px; }
+.manifesto h2 { font-size: clamp(24px, 4vw, 32px); color: var(--emerald-2); margin: 6px 0 10px; }
+.manifesto p { color: var(--ink-2); margin: 0; }
+.man-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; align-content: center; }
+.man-list li { display: grid; grid-template-columns: 40px 1fr; gap: 12px; align-items: start; font-size: 14px; color: var(--ink-2); }
+.man-list b { display: block; color: var(--ink); font-family: var(--serif); font-size: 17px; margin-bottom: 2px; }
+.man-list .n { width: 36px; height: 36px; border-radius: 999px; background: var(--gold-tint); color: var(--gold-2); border: 1px solid #e6d3a6; display: grid; place-items: center; font-family: var(--serif); font-weight: 700; }
+@media (max-width: 760px) { .manifesto { grid-template-columns: 1fr; padding: 18px; } }
