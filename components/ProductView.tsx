@@ -185,7 +185,7 @@ export default function ProductView({ p, similar }: { p: Product; similar: React
             <button className={`btn btn-sm ${on ? "btn-gold" : "btn-ghost"}`} onClick={() => { toggleFav(p.kod); setToast(on ? "Favorilerden çıkarıldı" : "Favorilere eklendi"); }} aria-pressed={on}><Icon name="heart" size={17} />{on ? "Favorilerimde" : "Favorilere ekle"}</button>
             <button className="btn btn-ghost btn-sm" onClick={share}><Icon name="share" size={17} />Paylaş</button>
             <button className="btn btn-ghost btn-sm" onClick={copyWa}><Icon name="chat" size={17} />WhatsApp'tan sor</button>
-            <button className="btn btn-ghost btn-sm" onClick={() => setCanli(true)}><Icon name="video" size={17} />Canlı görmek istiyorum</button>
+            <button className="btn btn-ghost btn-sm" onClick={() => setCanli(true)}><Icon name="video" size={17} />Canlı görüşme</button>
             <Link className="btn btn-ghost btn-sm" href={`/sepet?hediye=${p.kod}`}><Icon name="gift" size={17} />Hediye olarak gönder</Link>
           </div>
           <div className="lira-hint" style={{ marginTop: 12 }}><span className="coin">₺</span><span>Bu alışverişten <b>{tl(kazanilacak)}</b> Altın Lira kazanırsın; bir sonraki alışverişinde kullanırsın.</span></div>
@@ -225,8 +225,8 @@ export default function ProductView({ p, similar }: { p: Product; similar: React
         <div className="modal-bg" onClick={() => setCanli(false)}>
           <form className="modal" role="dialog" aria-modal="true" aria-labelledby="canli-baslik" onClick={(e) => e.stopPropagation()}
             onSubmit={(e) => { e.preventDefault(); setCanli(false); setToast("Talebin alındı (önizleme) · Berat seni arayacak"); }}>
-            <div className="row-between"><h2 id="canli-baslik">Canlı görmek istiyorum</h2><button type="button" className="icon-btn" onClick={() => setCanli(false)} aria-label="Kapat"><Icon name="x" /></button></div>
-            <p style={{ color: "var(--ink-2)", fontSize: 14 }}>{p.ad} ({p.kod}) için görüntülü gösterim randevusu. Uygun saatinde WhatsApp görüntülü aramayla gösteririz.</p>
+            <div className="row-between"><h2 id="canli-baslik">Canlı görüşme</h2><button type="button" className="icon-btn" onClick={() => setCanli(false)} aria-label="Kapat"><Icon name="x" /></button></div>
+            <p style={{ color: "var(--ink-2)", fontSize: 14 }}>{p.ad} ({p.kod}) için görüntülü görüşme randevusu. Uygun saatinde WhatsApp görüntülü aramayla takıyı canlı gösteririz.</p>
             <label className="note" htmlFor="canli-gun">Gün</label>
             <select id="canli-gun" className="select" style={{ width: "100%", margin: "4px 0 10px" }}><option>Bugün</option><option>Yarın</option><option>Bu hafta</option></select>
             <label className="note" htmlFor="canli-saat">Saat aralığı</label>
