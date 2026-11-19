@@ -43,27 +43,27 @@ export default async function AdminHome({ searchParams }: { searchParams: Promis
           <Link href="/admin" className={`chip${!sp.k ? " on" : ""}`}>Tümü</Link>
           {CATEGORIES.map((c) => <Link key={c.slug} href={`/admin?k=${c.slug}`} className={`chip${sp.k === c.slug ? " on" : ""}`}>{c.ad}</Link>)}
         </div>
-        <div className="adm-card adm-tbl-wrap" style={{ padding: 0 }}>
-          <table className="adm-table">
-            <thead><tr><th></th><th>Kod</th><th>Ürün</th><th>Kategori</th><th>Stok</th><th>Durum</th><th></th></tr></thead>
-            <tbody>
-              {rows.map((r) => {
-                const kendi = r.varyantlar.reduce((s, v) => s + v.kendi_stok, 0);
-                const ted = r.varyantlar.filter((v) => v.tedarikci_stok_teyitli).length;
-                return (
-                  <tr key={r.kod}>
-                    <td style={{ width: 52 }}>{r.gorseller?.[0] ? <img src={r.gorseller[0]} alt="" style={{ width: 40, height: 40, borderRadius: 8, objectFit: "cover" }} /> : <span className="pill off">foto yok</span>}</td>
-                    <td className="num" style={{ fontWeight: 600 }}>{r.kod}</td>
-                    <td>{r.ad}<div className="note">{r.ayar} ayar{r.firsat_iscilik_indirim ? ` · İşçilik −%${r.firsat_iscilik_indirim}` : ""}</div></td>
-                    <td>{kat[r.kategori] ?? r.kategori}</td>
-                    <td className="num">{kendi} adet{ted ? <div className="note">{ted} ölçü atölyede</div> : null}{!kendi && !ted ? <div><span className="pill warn">stok yok</span></div> : null}</td>
-                    <td><span className={`pill ${r.yayinda ? "on" : "off"}`}>{r.yayinda ? "Yayında" : "Taslak"}</span></td>
-                    <td><Link href={`/admin/urun/${r.kod}`} className="btn btn-ghost btn-sm">Düzenle</Link></td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+        <div className="adm-list">
+          {rows.map((r) => {
+            const kendi = r.varyantlar.reduce((s, v) => s + v.kendi_stok, 0);
+            const ted = r.varyantlar.filter((v) => v.tedarikci_stok_teyitli).length;
+            return (
+              <Link key={r.kod} href={`/admin/urun/${r.kod}`} className="adm-item">
+                <span className="thumb">{r.gorseller?.[0] ? <img src={r.gorseller[0]} alt="" /> : <span>foto<br />yok</span>}</span>
+                <span className="body">
+                  <span className="t">{r.ad}</span>
+                  <span className="note">{r.kod} · {kat[r.kategori] ?? r.kategori} · {r.ayar} ayar</span>
+                  <span className="meta">
+                    <span className={`pill ${r.yayinda ? "on" : "off"}`}>{r.yayinda ? "Yayında" : "Taslak"}</span>
+                    {r.firsat_iscilik_indirim ? <span className="pill warn">Fırsat</span> : null}
+                    <span className="note">{kendi} adet{ted ? ` · ${ted} ölçü atölyede` : ""}</span>
+                    {!kendi && !ted ? <span className="pill warn">stok yok</span> : null}
+                  </span>
+                </span>
+                <span className="go">Düzenle ›</span>
+              </Link>
+            );
+          })}
         </div>
       </div>
     </>
