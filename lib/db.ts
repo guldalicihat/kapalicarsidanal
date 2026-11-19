@@ -11,7 +11,7 @@ const KEY = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 type Row = {
   kod: string; tedarikci_kod: string | null; ad: string; kategori: CategorySlug; ayar: 14 | 22; milyem: number;
   renk: Product["renk"]; iscilik_milyem: number; olcu_turu: Product["olcuTuru"]; aciklama: string | null;
-  usta_notu: string | null; pirlanta: Product["pirlanta"] | null; firsat_iscilik_indirim: number | null;
+  usta_notu: string | null; pirlanta: Product["pirlanta"] | null; firsat_iscilik_indirim: number | null; firsat_bitis: string | null;
   yeni: boolean; usta_secimi: boolean;
   varyantlar: { olcu: string; net_mg: number; kendi_stok: number; tedarikci_stok_teyitli: boolean }[];
 };
@@ -27,7 +27,8 @@ function toProduct(r: Row): Product {
     art: ART[r.kod] ?? KAT_ART[r.kategori], ayar: r.ayar, milyem: r.milyem, renk: r.renk,
     iscilikMilyem: r.iscilik_milyem, olcuTuru: r.olcu_turu, aciklama: r.aciklama ?? "", ustaNotu: r.usta_notu ?? "",
     pirlanta: r.pirlanta ?? undefined,
-    firsat: r.firsat_iscilik_indirim ? { iscilikIndirimYuzde: r.firsat_iscilik_indirim } : undefined,
+    firsat: r.firsat_iscilik_indirim && (!r.firsat_bitis || Date.parse(r.firsat_bitis) > Date.now())
+      ? { iscilikIndirimYuzde: r.firsat_iscilik_indirim, bitis: r.firsat_bitis ?? undefined } : undefined,
     yeni: r.yeni, ustaSecimi: r.usta_secimi,
     varyantlar: [...r.varyantlar].sort((a, b) => a.net_mg - b.net_mg).map((v) => ({ olcu: v.olcu, netMg: v.net_mg, stok: stok(v) })),
   };

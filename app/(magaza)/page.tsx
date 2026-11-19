@@ -40,7 +40,7 @@ export default async function Home() {
       <section className="section" aria-labelledby="fir">
         <div className="section-head"><h2 id="fir">Süreli fırsatlar</h2><Link href="/kategori/yuzuk?firsat=1">Tümü</Link></div>
         <div className="deal-head">
-          <p><strong>İşçilikte indirim</strong> · Altın kısmı güncel fiyattan hesaplanır.</p>
+          <p><strong>Süre dolunca fiyat normale döner.</strong> Her ürünün sayacı kendi bitiş saatine sayar.</p>
           <DealTimer />
         </div>
         <div className="grid">{firsatlar.map((p) => <ProductCard key={p.kod} p={p} />)}</div>

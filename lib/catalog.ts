@@ -45,7 +45,7 @@ export type Product = {
   aciklama: string;
   ustaNotu: string;
   pirlanta?: Pirlanta;
-  firsat?: { iscilikIndirimYuzde: number };
+  firsat?: { iscilikIndirimYuzde: number; bitis?: string };
   yeni?: boolean;
   ustaSecimi?: boolean;
 };

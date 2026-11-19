@@ -82,7 +82,7 @@ export default function ProductView({ p, similar }: { p: Product; similar: React
                 <JewelryArt art={p.art} tone={p.renk} id={`m${p.kod}`} size={view === 3 ? "120%" : "78%"} />
               </button>
             )}
-            {firsat && <span className="tag tag-sale">İşçilik −%{p.firsat!.iscilikIndirimYuzde}</span>}
+            {firsat && <span className="tag tag-sale">Süreli fırsat</span>}
             <button className={`fav${on ? " on" : ""}`} onClick={() => toggleFav(p.kod)} aria-pressed={on} aria-label="Favori"><Icon name="heart" size={18} /></button>
           </div>
           <div className="thumbs">
@@ -98,7 +98,7 @@ export default function ProductView({ p, similar }: { p: Product; similar: React
             <span className="price num">{tl(fiyat.toplamKurus)}</span>
             {firsat && <span className="price-old num">{tl(normal.toplamKurus)}</span>}
           </div>
-          {firsat && <div style={{ marginTop: 8 }}><DealTimer label="Fırsatın bitmesine" /></div>}
+          {firsat && <div style={{ marginTop: 8 }}><DealTimer label="Fırsatın bitmesine" bitis={p.firsat?.bitis} /></div>}
           <div className="updated"><span className="dot" />Fiyatlar altın kuruna göre 15 dakikada bir güncellenir · Son güncelleme {saat || "--:--"} (örnek)</div>
 
           <div className="facts">
@@ -136,9 +136,9 @@ export default function ProductView({ p, similar }: { p: Product; similar: React
               <div className="content">
                 <table className="breakdown"><tbody>
                   <tr><td>İçindeki altın ({gram(v.netMg)} × {p.milyem}‰)</td><td>{tl(fiyat.altinKurus)}</td></tr>
-                  <tr><td>İşçilik{firsat ? ` (%${p.firsat!.iscilikIndirimYuzde} indirimli)` : ""}</td><td>{tl(fiyat.iscilikKurus)}</td></tr>
                   {p.pirlanta && <tr><td>Pırlanta</td><td>{tl(fiyat.tasKurus)}</td></tr>}
-                  <tr><td>Mağaza payı ve KDV</td><td>{tl(fiyat.toplamKurus - fiyat.altinKurus - fiyat.iscilikKurus - fiyat.tasKurus)}</td></tr>
+                  <tr><td>Hizmet ve vergiler</td><td>{tl(normal.toplamKurus - normal.altinKurus - normal.tasKurus)}</td></tr>
+                  {firsat && <tr><td>Fırsat indirimi</td><td>−{tl(normal.toplamKurus - firsat.toplamKurus)}</td></tr>}
                   <tr className="total"><td>Toplam</td><td>{tl(fiyat.toplamKurus)}</td></tr>
                 </tbody></table>
                 <p className="note" style={{ marginTop: 8 }}>Örnek hesap: has altın {tl(ORNEK_HAS_ALTIN_KURUS, true)}/g. Gerçek formül işletme ve mali müşavirle kesinleşecek.</p>
