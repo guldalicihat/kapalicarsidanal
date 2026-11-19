@@ -48,6 +48,8 @@ export type Product = {
   firsat?: { iscilikIndirimYuzde: number; bitis?: string };
   yeni?: boolean;
   ustaSecimi?: boolean;
+  hasKurus?: number; // güncel has altın satış fiyatı (veritabanından)
+  fiyatZamani?: string;
 };
 
 const r = (olcu: string, g: number, stok: Stok = "kendi"): Variant => ({ olcu, netMg: Math.round(g * 1000), stok });
@@ -185,6 +187,7 @@ export function category(slug: string) {
 
 export function variantPrice(p: Product, v: Variant): PriceBreakdown {
   return priceOf({
+    hasKurus: p.hasKurus,
     netMg: v.netMg,
     ayarMilyem: p.milyem,
     iscilikMilyem: p.iscilikMilyem,
@@ -196,7 +199,7 @@ export function variantPrice(p: Product, v: Variant): PriceBreakdown {
 export function firsatPrice(p: Product, v: Variant): PriceBreakdown | null {
   if (!p.firsat) return null;
   const iscilik = Math.round((p.iscilikMilyem * (100 - p.firsat.iscilikIndirimYuzde)) / 100);
-  return priceOf({ netMg: v.netMg, ayarMilyem: p.milyem, iscilikMilyem: iscilik, tasKurus: p.pirlanta?.tasKurus });
+  return priceOf({ hasKurus: p.hasKurus, netMg: v.netMg, ayarMilyem: p.milyem, iscilikMilyem: iscilik, tasKurus: p.pirlanta?.tasKurus });
 }
 
 export function defaultVariant(p: Product): Variant {

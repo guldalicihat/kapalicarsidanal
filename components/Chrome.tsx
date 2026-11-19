@@ -4,13 +4,15 @@ import { usePathname } from "next/navigation";
 import Icon from "./Icon";
 import { useStore } from "@/lib/useStore";
 import { ORNEK_HAS_ALTIN_KURUS, tl } from "@/lib/pricing";
+import { useProducts } from "./CatalogProvider";
 
 export function PreviewStrip() {
+  const has = useProducts()[0]?.hasKurus ?? ORNEK_HAS_ALTIN_KURUS;
   return (
     <div className="preview-strip">
       <div className="shell">
         <span><b>Tasarım önizlemesi</b><span className="hide-sm"> · Ürünler ve fiyatlar örnektir, satış yapılmaz</span></span>
-        <span className="gold-price num">Has altın (örnek): {tl(ORNEK_HAS_ALTIN_KURUS, true)}</span>
+        <span className="gold-price num">Has altın: {tl(has, true)}/g</span>
       </div>
     </div>
   );

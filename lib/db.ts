@@ -44,7 +44,12 @@ export async function getCatalog(): Promise<Catalog> {
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const rows = (await res.json()) as Row[];
     if (!rows.length) return { categories: CATEGORIES, products: PRODUCTS, kaynak: "ornek" };
-    return { categories: CATEGORIES, products: rows.map(toProduct), kaynak: "veritabani" };
+    const a = await fetch(`${URL_}/rest/v1/altin_fiyatlari?select=has_satis_kurus,zaman&order=zaman.desc&limit=1`, {
+      headers: { apikey: KEY, Authorization: `Bearer ${KEY}` }, next: { revalidate: 60 },
+    });
+    const altin = a.ok ? ((await a.json()) as { has_satis_kurus: number; zaman: string }[])[0] : undefined;
+    const products = rows.map((r) => ({ ...toProduct(r), hasKurus: altin?.has_satis_kurus, fiyatZamani: altin?.zaman }));
+    return { categories: CATEGORIES, products, kaynak: "veritabani" };
   } catch (e) {
     console.error("[katalog] veritabanı okunamadı, örnek katalog kullanılıyor:", e instanceof Error ? e.message : e);
     return { categories: CATEGORIES, products: PRODUCTS, kaynak: "ornek" };

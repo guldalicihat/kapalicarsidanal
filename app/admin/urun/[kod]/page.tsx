@@ -21,7 +21,7 @@ export default async function UrunDuzenle({ params }: { params: Promise<{ kod: s
     <>
       <AdminTop eposta={admin.eposta} />
       <div className="adm-main">
-        <ProductForm urun={urun} kategoriler={CATEGORIES.map((c) => ({ slug: c.slug, ad: c.ad }))} hasKurus={altin?.has_satis_kurus ?? 585000} altinKaynak={altin?.kaynak ?? "örnek"} />
+        <ProductForm urun={urun} kategoriler={CATEGORIES.map((c) => ({ slug: c.slug, ad: c.ad }))} hasKurus={altin?.has_satis_kurus ?? 615000} altinKaynak={altin?.kaynak ?? "örnek"} />
       </div>
     </>
   );

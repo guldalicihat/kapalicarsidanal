@@ -112,3 +112,13 @@ export async function saveProduct(_: unknown, fd: FormData): Promise<{ ok: boole
   revalidatePath("/", "layout");
   redirect(`/admin?kaydedildi=${encodeURIComponent(kod)}`);
 }
+
+export async function setGoldPrice(fd: FormData) {
+  await requireAdmin();
+  const tlDeger = Number(String(fd.get("has") ?? "").replace(/\./g, "").replace(",", "."));
+  if (!(tlDeger > 1000 && tlDeger < 100000)) redirect("/admin?hata=altin");
+  const { error } = await serviceClient().from("altin_fiyatlari").insert({ kaynak: "manuel", has_satis_kurus: Math.round(tlDeger * 100) });
+  if (error) redirect("/admin?hata=altin");
+  revalidatePath("/", "layout");
+  redirect("/admin?altin=1");
+}

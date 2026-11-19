@@ -33,7 +33,7 @@ export default function ProductView({ p, similar }: { p: Product; similar: React
   const [ilce, setIlce] = useState("");
   const [toast, setToast] = useState("");
   const [saat, setSaat] = useState("");
-  useEffect(() => setSaat(lastUpdate()), []);
+  useEffect(() => setSaat(p.fiyatZamani ? new Date(p.fiyatZamani).toLocaleString("tr-TR", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }) : lastUpdate()), [p.fiyatZamani]);
   useEffect(() => { if (!toast) return; const t = setTimeout(() => setToast(""), 2600); return () => clearTimeout(t); }, [toast]);
 
   const normal = variantPrice(p, v);
@@ -99,7 +99,7 @@ export default function ProductView({ p, similar }: { p: Product; similar: React
             {firsat && <span className="price-old num">{tl(normal.toplamKurus)}</span>}
           </div>
           {firsat && <div style={{ marginTop: 8 }}><DealTimer label="Fırsatın bitmesine" bitis={p.firsat?.bitis} /></div>}
-          <div className="updated"><span className="dot" />Fiyatlar altın kuruna göre 15 dakikada bir güncellenir · Son güncelleme {saat || "--:--"} (örnek)</div>
+          <div className="updated"><span className="dot" />Fiyatlar altın kuruna göre 15 dakikada bir güncellenir · Son güncelleme {saat || "--:--"}</div>
 
           <div className="facts">
             <div>Ağırlık<b className="num">{gram(v.netMg)}</b></div>
