@@ -5,7 +5,6 @@ export type CategorySlug = "yuzuk" | "bilezik" | "bileklik" | "kolye" | "kupe" |
 
 export const CATEGORIES: { slug: CategorySlug; ad: string; cogul: string; art: Art }[] = [
   { slug: "yuzuk", ad: "Yüzük", cogul: "Altın yüzükler", art: "burgu" },
-  { slug: "bilezik", ad: "Bilezik", cogul: "Altın bilezikler", art: "bilezik" },
   { slug: "bileklik", ad: "Bileklik", cogul: "Altın bileklikler", art: "bileklik" },
   { slug: "kolye", ad: "Kolye", cogul: "Altın kolyeler", art: "kolye" },
   { slug: "kupe", ad: "Küpe", cogul: "Altın küpeler", art: "kupe" },
@@ -104,22 +103,6 @@ export const PRODUCTS: Product[] = [
     varyantlar: [r("12", 2.95), r("14", 3.0), r("16", 3.1)],
     aciklama: "Küçük altın topların sıralandığı ince model.",
     ustaNotu: "Minik altın toplar yan yana dizilmiş, zarif mi zarif. Üst üste takılan yüzüklerin arasında parlar, gününe neşe katar.",
-  },
-  {
-    kod: "KA-B101", tedarikciKod: "T4-BRM-1250", ad: "Burma Altın Bilezik", kategori: "bilezik", art: "bilezik",
-    ayar: 22, milyem: 916, renk: "Sarı altın", iscilikMilyem: 25, olcuTuru: "Çap",
-    varyantlar: [r("60 mm", 12.1), r("62 mm", 12.5), r("64 mm", 12.9, "tedarikci")],
-    aciklama: "22 ayar, geleneksel burma desen. Takıyla birikimi bir arada isteyenler için.",
-    ustaNotu: "Geleneksel burma, 22 ayar. Hem kolunda süs hem kenarda birikim; ananelerimizin bileziği boşuna sevilmedi!",
-    ustaSecimi: true,
-  },
-  {
-    kod: "KA-B108", tedarikciKod: "T4-HSR-1580", ad: "Hasır Altın Bilezik", kategori: "bilezik", art: "hasir",
-    ayar: 22, milyem: 916, renk: "Sarı altın", iscilikMilyem: 30, olcuTuru: "Çap",
-    varyantlar: [r("60 mm", 15.4), r("62 mm", 15.8)],
-    aciklama: "Hasır örgü yüzey, tam kapalı kilit.",
-    ustaNotu: "Hasır desen ince ince örülmüş, eline aldığında farkı hissedersin. Kolda gösterişli, düğünde bayramda göz doldurur.",
-    firsat: { iscilikIndirimYuzde: 30 },
   },
   {
     kod: "KA-K201", tedarikciKod: "T5-TPL-410", ad: "Altın Toplu Bileklik", kategori: "bileklik", art: "bileklik",

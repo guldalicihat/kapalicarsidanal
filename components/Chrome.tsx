@@ -29,7 +29,7 @@ export function TopBar() {
         </Link>
         <nav className="desk-nav" aria-label="Kategoriler">
           <Link href="/kategori/yuzuk">Yüzük</Link>
-          <Link href="/kategori/bilezik">Bilezik</Link>
+          <Link href="/kategori/bileklik">Bileklik</Link>
           <Link href="/kategori/kolye">Kolye</Link>
           <Link href="/kategori/kupe">Küpe</Link>
           <Link href="/kategori/pirlanta">Pırlanta</Link>
