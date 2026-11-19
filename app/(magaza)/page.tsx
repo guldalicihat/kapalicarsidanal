@@ -50,10 +50,13 @@ export default async function Home() {
       {firsatlar.length > 0 && (
         <section className="section deals" id="firsat" aria-labelledby="fir">
           <div className="deals-head">
-            <div>
-              <span className="eyebrow" style={{ color: "#f1dca7" }}>Süreli fırsatlar</span>
-              <h2 id="fir">Süre bitmeden yakala</h2>
-              <p>Süre dolunca fiyat normale döner. Sayaç herkes için aynı.</p>
+            <div className="deals-intro">
+              <img src="/cevat/pazarlik.jpg" alt="Cevat Usta" className="deals-face" />
+              <div>
+                <span className="eyebrow" style={{ color: "#f1dca7" }}>Süreli fırsatlar · {firsatlar.length} takı</span>
+                <h2 id="fir">Patronun eli açıkken yakala!</h2>
+                <div className="deals-bubble">Bu takılar için patronu ikna ettim, fiyatları indirdi. Sayaç bitince eski fiyata döner; gözüne kestirdiğini kaçırma!<small>— Cevat Usta</small></div>
+              </div>
             </div>
             <div className="deals-timer"><DealTimer label="En yakın bitiş" bitis={enYakin} /></div>
           </div>
