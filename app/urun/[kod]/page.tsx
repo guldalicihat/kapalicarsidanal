@@ -3,15 +3,17 @@ import Link from "next/link";
 import ProductView from "@/components/ProductView";
 import ProductCard from "@/components/ProductCard";
 import Icon from "@/components/Icon";
-import { PRODUCTS, category, product } from "@/lib/catalog";
+import { PRODUCTS as ORNEK, category } from "@/lib/catalog";
+import { getCatalog } from "@/lib/db";
 
 export function generateStaticParams() {
-  return PRODUCTS.map((p) => ({ kod: p.kod }));
+  return ORNEK.map((p) => ({ kod: p.kod }));
 }
 
 export default async function Urun({ params }: { params: Promise<{ kod: string }> }) {
   const { kod } = await params;
-  const p = product(kod);
+  const { products: PRODUCTS } = await getCatalog();
+  const p = PRODUCTS.find((x) => x.kod === kod);
   if (!p) notFound();
   const c = category(p.kategori)!;
   const benzer = PRODUCTS.filter((x) => x.kategori === p.kategori && x.kod !== p.kod).slice(0, 4);

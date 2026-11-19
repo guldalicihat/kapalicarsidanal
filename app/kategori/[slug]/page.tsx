@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Listing from "@/components/Listing";
-import { CATEGORIES, PRODUCTS, category } from "@/lib/catalog";
+import { CATEGORIES, category } from "@/lib/catalog";
+import { getCatalog } from "@/lib/db";
 
 export function generateStaticParams() {
   return CATEGORIES.map((c) => ({ slug: c.slug }));
@@ -12,6 +13,7 @@ export default async function Kategori({ params, searchParams }: { params: Promi
   const sp = await searchParams;
   const c = category(slug);
   if (!c) notFound();
+  const { products: PRODUCTS } = await getCatalog();
   return (
     <div className="shell">
       <div className="chips" style={{ marginTop: 16 }}>

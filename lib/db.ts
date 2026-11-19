@@ -1,0 +1,51 @@
+// Katalog verisini Supabase'den okur (sunucu tarafı). Bağlantı yoksa ya da hata olursa
+// örnek kataloğa düşer; böylece önizleme hiçbir zaman boş sayfa göstermez.
+import "server-only";
+import { CATEGORIES, PRODUCTS, type Art, type CategorySlug, type Product, type Stok } from "./catalog";
+
+export type Catalog = { categories: typeof CATEGORIES; products: Product[]; kaynak: "veritabani" | "ornek" };
+
+const URL_ = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const KEY = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+
+type Row = {
+  kod: string; tedarikci_kod: string | null; ad: string; kategori: CategorySlug; ayar: 14 | 22; milyem: number;
+  renk: Product["renk"]; iscilik_milyem: number; olcu_turu: Product["olcuTuru"]; aciklama: string | null;
+  usta_notu: string | null; pirlanta: Product["pirlanta"] | null; firsat_iscilik_indirim: number | null;
+  yeni: boolean; usta_secimi: boolean;
+  varyantlar: { olcu: string; net_mg: number; kendi_stok: number; tedarikci_stok_teyitli: boolean }[];
+};
+
+const ART: Record<string, Art> = Object.fromEntries(PRODUCTS.map((p) => [p.kod, p.art]));
+const KAT_ART: Record<CategorySlug, Art> = { yuzuk: "burgu", bilezik: "bilezik", bileklik: "bileklik", kolye: "kolye", kupe: "kupe", pirlanta: "tektas" };
+
+const stok = (v: Row["varyantlar"][number]): Stok => (v.kendi_stok > 0 ? "kendi" : v.tedarikci_stok_teyitli ? "tedarikci" : "yok");
+
+function toProduct(r: Row): Product {
+  return {
+    kod: r.kod, tedarikciKod: r.tedarikci_kod ?? "", ad: r.ad, kategori: r.kategori,
+    art: ART[r.kod] ?? KAT_ART[r.kategori], ayar: r.ayar, milyem: r.milyem, renk: r.renk,
+    iscilikMilyem: r.iscilik_milyem, olcuTuru: r.olcu_turu, aciklama: r.aciklama ?? "", ustaNotu: r.usta_notu ?? "",
+    pirlanta: r.pirlanta ?? undefined,
+    firsat: r.firsat_iscilik_indirim ? { iscilikIndirimYuzde: r.firsat_iscilik_indirim } : undefined,
+    yeni: r.yeni, ustaSecimi: r.usta_secimi,
+    varyantlar: [...r.varyantlar].sort((a, b) => a.net_mg - b.net_mg).map((v) => ({ olcu: v.olcu, netMg: v.net_mg, stok: stok(v) })),
+  };
+}
+
+export async function getCatalog(): Promise<Catalog> {
+  if (!URL_ || !KEY) return { categories: CATEGORIES, products: PRODUCTS, kaynak: "ornek" };
+  try {
+    const res = await fetch(`${URL_}/rest/v1/urunler?select=*,varyantlar(olcu,net_mg,kendi_stok,tedarikci_stok_teyitli)&yayinda=eq.true&order=kod`, {
+      headers: { apikey: KEY, Authorization: `Bearer ${KEY}` },
+      next: { revalidate: 60 },
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const rows = (await res.json()) as Row[];
+    if (!rows.length) return { categories: CATEGORIES, products: PRODUCTS, kaynak: "ornek" };
+    return { categories: CATEGORIES, products: rows.map(toProduct), kaynak: "veritabani" };
+  } catch (e) {
+    console.error("[katalog] veritabanı okunamadı, örnek katalog kullanılıyor:", e instanceof Error ? e.message : e);
+    return { categories: CATEGORIES, products: PRODUCTS, kaynak: "ornek" };
+  }
+}

@@ -3,9 +3,10 @@ import ProductCard from "@/components/ProductCard";
 import JewelryArt from "@/components/JewelryArt";
 import Icon from "@/components/Icon";
 import DealTimer from "@/components/DealTimer";
-import { CATEGORIES, PRODUCTS } from "@/lib/catalog";
+import { getCatalog } from "@/lib/db";
 
-export default function Home() {
+export default async function Home() {
+  const { categories: CATEGORIES, products: PRODUCTS } = await getCatalog();
   const firsatlar = PRODUCTS.filter((p) => p.firsat);
   const secki = PRODUCTS.filter((p) => p.ustaSecimi);
   const yeniler = PRODUCTS.filter((p) => p.yeni);

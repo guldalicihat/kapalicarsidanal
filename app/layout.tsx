@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { BottomBar, PreviewStrip, TopBar } from "@/components/Chrome";
+import { CatalogProvider } from "@/components/CatalogProvider";
+import { getCatalog } from "@/lib/db";
 
 export const metadata: Metadata = {
   title: "Kapalıçarşıdan Al — Tasarım önizlemesi",
@@ -10,7 +12,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = { themeColor: "#0a3a2c", width: "device-width", initialScale: 1, viewportFit: "cover" };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const { products } = await getCatalog();
   return (
     <html lang="tr">
       <head>
@@ -24,7 +27,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <PreviewStrip />
         <TopBar />
-        <main>{children}</main>
+        <CatalogProvider products={products}><main>{children}</main></CatalogProvider>
         <BottomBar />
       </body>
     </html>

@@ -1,9 +1,11 @@
 import Listing from "@/components/Listing";
-import { PRODUCTS, CATEGORIES } from "@/lib/catalog";
+import { CATEGORIES } from "@/lib/catalog";
+import { getCatalog } from "@/lib/db";
 
 const norm = (s: string) => s.toLocaleLowerCase("tr-TR");
 
 export default async function Ara({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
+  const { products: PRODUCTS } = await getCatalog();
   const q = norm((await searchParams).q ?? "").trim();
   const found = q
     ? PRODUCTS.filter((p) => norm(`${p.ad} ${p.kod} ${p.renk} ${CATEGORIES.find((c) => c.slug === p.kategori)?.ad}`).includes(q))

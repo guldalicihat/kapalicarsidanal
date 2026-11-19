@@ -1,7 +1,8 @@
 import Link from "next/link";
 import JewelryArt from "@/components/JewelryArt";
 import Icon from "@/components/Icon";
-import { product, variantPrice } from "@/lib/catalog";
+import { variantPrice } from "@/lib/catalog";
+import { getCatalog } from "@/lib/db";
 import { gram, tl } from "@/lib/pricing";
 
 const ADIMLAR = [
@@ -13,9 +14,10 @@ const ADIMLAR = [
   { ad: "Teslim edildi", saat: "", durum: "todo" },
 ];
 
-export default function Siparislerim() {
-  const p = product("KA-Y014")!;
-  const v = p.varyantlar.find((x) => x.olcu === "16")!;
+export default async function Siparislerim() {
+  const { products } = await getCatalog();
+  const p = products.find((x) => x.kod === "KA-Y014") ?? products[0];
+  const v = p.varyantlar.find((x) => x.olcu === "16") ?? p.varyantlar[0];
   return (
     <div className="shell" style={{ maxWidth: 760 }}>
       <h1 className="page-title">Sipariş takibi</h1>

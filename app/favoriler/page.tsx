@@ -2,10 +2,11 @@
 import Link from "next/link";
 import ProductCard from "@/components/ProductCard";
 import { useStore } from "@/lib/useStore";
-import { PRODUCTS } from "@/lib/catalog";
+import { useProducts } from "@/components/CatalogProvider";
 
 export default function Favoriler() {
   const { fav } = useStore();
+  const PRODUCTS = useProducts();
   const list = PRODUCTS.filter((p) => fav.includes(p.kod));
   return (
     <div className="shell">

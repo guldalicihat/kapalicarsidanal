@@ -5,12 +5,15 @@ import { useState } from "react";
 import JewelryArt from "./JewelryArt";
 import Icon from "./Icon";
 import { useStore } from "@/lib/useStore";
-import { product, variantPrice, firsatPrice } from "@/lib/catalog";
+import { variantPrice, firsatPrice } from "@/lib/catalog";
+import { useProducts } from "./CatalogProvider";
 import { tl } from "@/lib/pricing";
 
 export default function Cart() {
   const sp = useSearchParams();
   const { cart, removeFromCart } = useStore();
+  const urunler = useProducts();
+  const product = (kod: string) => urunler.find((x) => x.kod === kod);
   const [hediye, setHediye] = useState(!!sp.get("hediye"));
   const [fiyatsiz, setFiyatsiz] = useState(true);
   const [gonder, setGonder] = useState(false);

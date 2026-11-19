@@ -1,11 +1,12 @@
 import Link from "next/link";
 import Bargain from "@/components/Bargain";
 import ProductCard from "@/components/ProductCard";
-import { PRODUCTS, product } from "@/lib/catalog";
+import { getCatalog } from "@/lib/db";
 
 export default async function PazarlikSayfasi({ searchParams }: { searchParams: Promise<{ urun?: string; olcu?: string }> }) {
   const sp = await searchParams;
-  const p = sp.urun ? product(sp.urun) : undefined;
+  const { products: PRODUCTS } = await getCatalog();
+  const p = sp.urun ? PRODUCTS.find((x) => x.kod === sp.urun) : undefined;
   if (p && !p.firsat) {
     return (
       <div className="shell">
