@@ -4,6 +4,7 @@ import JewelryArt from "@/components/JewelryArt";
 import Icon from "@/components/Icon";
 import DealTimer from "@/components/DealTimer";
 import { getCatalog } from "@/lib/db";
+import { GuvenSeridi } from "@/components/Guvence";
 
 const MANIFESTO = [
   { b: "Aracısız", s: "Takı, araya kimse girmeden atölyeden ve toptancıdan sana gelir. Aracı payı fiyata binmez." },
@@ -42,6 +43,8 @@ export default async function Home() {
         <div><Icon name="hand" /><span><b>Pazarlık var</b>Teklifini patrona ilet</span></div>
         <div><Icon name="truck" /><span><b>Sigortalı teslimat</b>Takip numarasıyla</span></div>
       </div>
+
+      <GuvenSeridi />
 
       {firsatlar.length > 0 && (
         <section className="section deals" id="firsat" aria-labelledby="fir">

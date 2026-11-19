@@ -6,6 +6,7 @@ import JewelryArt from "./JewelryArt";
 import Icon from "./Icon";
 import DealTimer from "./DealTimer";
 import Stars from "./Stars";
+import { UrunGuvenceleri } from "./Guvence";
 import { useStore } from "@/lib/useStore";
 import { STOK_METNI, defaultVariant, firsatPrice, variantPrice, type Product } from "@/lib/catalog";
 import { gram, tl } from "@/lib/pricing";
@@ -136,6 +137,8 @@ export default function ProductView({ p, similar }: { p: Product; similar: React
             <img className="avatar" src="/cevat/portre.jpg" alt="Cevat Usta" />
             <div className="bubble">{p.ustaNotu}<small>— Cevat Usta</small></div>
           </div>
+
+          <UrunGuvenceleri ayar={p.ayar} milyem={p.milyem} gramMetni={gram(v.netMg)} pirlantaSertifika={p.pirlanta?.sertifika ?? undefined} />
 
           <div className="svc">
             <a href="#hizmet" onClick={() => setHizmet(true)}><Icon name="card" size={20} /><span><b>Taksit</b>Kartına göre</span></a>

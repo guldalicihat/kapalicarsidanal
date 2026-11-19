@@ -17,6 +17,7 @@ export default function Cart() {
   const [hediye, setHediye] = useState(!!sp.get("hediye"));
   const [fiyatsiz, setFiyatsiz] = useState(true);
   const [gonder, setGonder] = useState(false);
+  const [onay, setOnay] = useState(false);
 
   const pz = sp.get("pazarlik");
   const satirlar = cart.map((l) => {
@@ -45,6 +46,11 @@ export default function Cart() {
       <img src="/cevat/hazirlar.jpg" alt="" style={{ width: 140, height: 140, borderRadius: 999, objectFit: "cover", margin: "0 auto 12px", border: "2px solid var(--gold)" }} />
       <h2 style={{ color: "var(--emerald-2)" }}>Ödeme adımı (önizleme)</h2>
       <p style={{ color: "var(--ink-2)" }}>Canlı sürümde burada Kuveyt Türk 3D Secure ödeme sayfası açılır. Kart bilgileri bizim sistemimizde tutulmaz. Ödeme bankadan doğrulandıktan sonra sipariş oluşur.</p>
+      <div className="pay-safe" style={{ textAlign: "left", margin: "0 auto 14px", maxWidth: 420 }}>
+        <div><Icon name="lock" size={18} /><span><b>Ödeme bankanın sayfasında</b>3D Secure: telefonuna gelen kodla onaylarsın.</span></div>
+        <div><Icon name="clock" size={18} /><span><b>Fiyatın 15 dakika sabit</b>Ödeme bitene kadar altın fiyatı değişse de fiyatın değişmez.</span></div>
+        <div><Icon name="shield" size={18} /><span><b>Sigortalı teslimat ve e-fatura</b>Takın kapına kadar sigortalı, faturası firma adına.</span></div>
+      </div>
       <Link href="/siparislerim" className="btn btn-primary">Örnek sipariş takibini gör</Link>
     </div>
   );
@@ -80,9 +86,14 @@ export default function Cart() {
         <div className="r"><span>Sigortalı teslimat</span><span>Adrese göre</span></div>
         <div className="r"><span>Kazanacağın Altın Lira</span><span className="pos num">+{tl(Math.floor(ara / 100))}</span></div>
         <div className="r t"><span>Toplam</span><span className="num">{tl(ara)}</span></div>
-        <button className="btn btn-primary btn-block" onClick={() => setGonder(true)}>Güvenli ödemeye geç <Icon name="lock" size={18} /></button>
+        <div className="pay-safe">
+          <div><Icon name="lock" size={18} /><span><b>3D Secure güvenli ödeme</b>Kuveyt Türk ödeme sayfası; kart bilgin bize gelmez.</span></div>
+          <div><Icon name="clock" size={18} /><span><b>Fiyatın 15 dakika sabit</b>Ödeme bitene kadar değişmez.</span></div>
+        </div>
+        <label className="toggle" style={{ fontSize: 13 }}><input type="checkbox" id="sozlesme" checked={onay} onChange={(e) => setOnay(e.target.checked)} /> <span><Link href="/guvencelerimiz#yasal">Ön bilgilendirme formu</Link> ve <Link href="/guvencelerimiz#yasal">mesafeli satış sözleşmesini</Link> okudum, onaylıyorum.</span></label>
+        <button className="btn btn-primary btn-block" disabled={!onay} onClick={() => setGonder(true)}>Güvenle öde <Icon name="lock" size={18} /></button>
         <div className="lira-hint" style={{ margin: 0 }}><span className="coin">₺</span><span>Siparişin teslim edilince <b>{tl(Math.floor(ara / 100))}</b> Altın Lira hesabına eklenir; bir sonraki alışverişinde kullanırsın.</span></div>
-        <p className="note" style={{ margin: 0 }}>Ödeme öncesi ön bilgilendirme formu ve mesafeli satış sözleşmesi gösterilecek. Tutarlar örnektir.</p>
+        <p className="note" style={{ margin: 0 }}>Sorun mu var? <Link href="/guvencelerimiz#iletisim">Bize ulaş</Link> · Tutarlar örnektir.</p>
       </div>
     </div>
   );

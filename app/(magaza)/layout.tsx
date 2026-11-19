@@ -2,6 +2,7 @@ import { BottomBar, PreviewStrip, TopBar } from "@/components/Chrome";
 import { CatalogProvider } from "@/components/CatalogProvider";
 import { getCatalog } from "@/lib/db";
 import Feedback from "@/components/Feedback";
+import { Altbilgi } from "@/components/Guvence";
 
 export default async function MagazaLayout({ children }: { children: React.ReactNode }) {
   const { products } = await getCatalog();
@@ -10,6 +11,7 @@ export default async function MagazaLayout({ children }: { children: React.React
       <PreviewStrip />
       <TopBar />
       <main>{children}</main>
+      <Altbilgi />
       <Feedback />
       <BottomBar />
     </CatalogProvider>
