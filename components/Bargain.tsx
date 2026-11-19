@@ -128,6 +128,14 @@ export default function Bargain({ p, olcu }: { p: Product; olcu: string }) {
             <button className="btn btn-ghost" onClick={() => setS(vazgec(s, Date.now()))}>Reddet</button>
           </div>
         )}
+        {s.durum === "ANLASMA" && bitis && !sureDoldu && (
+          <div className="msg">
+            <img className="av" src="/cevat/hazirlar.jpg" alt="" />
+            <div className="b">Anlaştınız, hayırlı olsun! Ürün 15 dakika senin için ayrıldı.<small>Cevat Usta</small>
+              <Link className="btn btn-primary btn-sm" style={{ marginTop: 8 }} href={`/sepet?pazarlik=${p.kod}&olcu=${encodeURIComponent(v.olcu)}&tutar=${s.anlasilan}`}>Ödemeye geç · <Countdown until={bitis} /></Link>
+            </div>
+          </div>
+        )}
         {s.durum === "KAPANDI" && (
           <div className="msg"><img className="av" src="/cevat/hos-geldin.jpg" alt="" /><div className="b">Olsun, kapımız her zaman açık. Başka bir takıya bakalım mı?<small>Cevat Usta</small></div></div>
         )}
