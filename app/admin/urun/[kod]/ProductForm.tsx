@@ -78,7 +78,7 @@ export default function ProductForm({ urun, kategoriler, hasKurus, altinKaynak }
             </select>
           </label>
           <label className="f span3">Açıklama<textarea name="aciklama" defaultValue={urun?.aciklama ?? ""} placeholder="Model, işçilik, kullanım…" /></label>
-          <label className="f span3">Cevat Usta'nın notu<textarea name="ustaNotu" defaultValue={urun?.usta_notu ?? ""} placeholder="Müşteriye bir ipucu: ölçü, bakım, kombin…" /></label>
+          <label className="f span3">Cevat Usta'nın notu<textarea name="ustaNotu" defaultValue={urun?.usta_notu ?? ""} placeholder="Ürünü tanıtan, öven samimi bir söz. Örn: Bu burgu tam bir klasik! Işığı her açıdan yakalar…" /></label>
         </div>
       </section>
 

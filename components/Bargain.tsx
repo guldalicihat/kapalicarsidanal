@@ -92,7 +92,7 @@ export default function Bargain({ p, olcu }: { p: Product; olcu: string }) {
       <div className="panel bz-chat" aria-live="polite">
         <div className="msg">
           <img className="av" src="/cevat/portre.jpg" alt="" />
-          <div className="b">Hoş geldin! {p.ad} için teklifini yaz, patrona ileteyim.<small>Cevat Usta</small></div>
+          <div className="b">Hoş geldin! {p.ad}, çok iyi seçim; göz zevkin yerinde. Teklifini yaz, hemen patrona ileteyim.<small>Cevat Usta</small></div>
         </div>
         {s.olaylar.map((o, i) => o.kim === "musteri" ? (
           <div key={i} className="msg me"><div className="b">{satir(o)}<small>{saat(o.zaman)}</small></div></div>
