@@ -8,6 +8,7 @@ import { ODEME_SURESI_MS, baslat, kabulEt, teklifVer, vazgec, type Olay, type Pa
 import { defaultVariant, variantPrice, type Product } from "@/lib/catalog";
 import { gram, tl } from "@/lib/pricing";
 
+const binlik = (rakam: string) => (rakam ? new Intl.NumberFormat("tr-TR").format(Number(rakam)) : "");
 const saat = (t: number) => new Date(t).toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" });
 
 function satir(o: Olay): string {
@@ -33,13 +34,14 @@ export default function Bargain({ p, olcu }: { p: Product; olcu: string }) {
   const [hata, setHata] = useState("");
 
   const gonder = () => {
-    const tutar = Math.round(Number(giris.replace(/\./g, "").replace(",", ".")) * 100);
+    const tutar = Number(giris.replace(/\D/g, "")) * 100;
     if (!tutar || tutar < 100) { setHata("Geçerli bir tutar yaz."); return; }
     setHata(""); setBekle(true);
     const zaman = Date.now();
     setTimeout(() => {
       const yeni = teklifVer(s, tutar, zaman);
-      setS(yeni); setBekle(false); setGiris("");
+      setS(yeni); setBekle(false);
+      setGiris(yeni.patronTeklif && (yeni.durum === "KARSI_TEKLIF" || yeni.durum === "SON_FIYAT") ? binlik(String(Math.round(yeni.patronTeklif / 100))) : "");
       if (yeni.durum === "ANLASMA") setBitis(Date.now() + ODEME_SURESI_MS);
     }, 900);
   };
@@ -108,7 +110,7 @@ export default function Bargain({ p, olcu }: { p: Product; olcu: string }) {
             <div className="offer">
               <label className="money" htmlFor="teklif">
                 <input id="teklif" inputMode="numeric" placeholder={new Intl.NumberFormat("tr-TR").format(Math.round(liste / 100 * 0.94 / 50) * 50)}
-                  value={giris} onChange={(e) => setGiris(e.target.value.replace(/[^\d.,]/g, ""))} onKeyDown={(e) => e.key === "Enter" && gonder()} />
+                  value={giris} onChange={(e) => setGiris(binlik(e.target.value.replace(/\D/g, "").slice(0, 9)))} onKeyDown={(e) => e.key === "Enter" && gonder()} />
                 <span>TL</span>
               </label>
               <button className="btn btn-primary" onClick={gonder}>{s.musteriTeklifSayisi ? "Yeni teklif" : "Teklif ver"}</button>
