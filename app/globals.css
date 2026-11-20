@@ -536,3 +536,28 @@ body:has(.site-foot) main { padding-bottom: 8px; }
 .guv-hero > img { width: 100%; aspect-ratio: 9 / 13; object-fit: cover; border-radius: 18px; }
 @media (max-width: 760px) { .guv-hero { grid-template-columns: 1fr; gap: 8px; } .guv-hero > img { aspect-ratio: 16 / 11; object-position: center 62%; } }
 .guv-foto { width: calc(100% + 36px); margin: -18px -18px 4px; aspect-ratio: 16 / 10; object-fit: cover; border-radius: 14px 14px 0 0; }
+
+/* ===== Gerçek dokular (ChatGPT ile üretildi): pirinç, kadife, ahşap, İznik, taş, altın varak ===== */
+body { background-color: var(--bg); background-image: url(/doku/tas.jpg); background-size: 512px auto; }
+/* Fiyat: pirinç levha (kenar pahı her boyutta korunur) */
+.card .price, .pd-price .price { animation: none; background: none; box-shadow: 0 2px 3px rgba(60,40,8,.25);
+  border: 6px solid transparent; border-image: url(/doku/pirinc.jpg) 22 fill / 6px stretch; border-radius: 0; padding: 0 5px;
+  color: #2e2006; text-shadow: 0 1px 0 rgba(255,240,200,.55); }
+.pd-price .price { border-width: 8px; border-image-width: 8px; padding: 1px 10px; }
+/* Ana düğme: zümrüt kadife */
+.btn-primary, .btn-primary:hover { background: #0b3b2d url(/doku/kadife.jpg) center / cover; color: #fff; text-shadow: 0 1px 1px rgba(0,0,0,.35);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.08), inset 0 -2px 6px rgba(0,0,0,.35); }
+.btn-primary:hover { filter: brightness(1.12); }
+.btn-primary:disabled { filter: grayscale(.6) brightness(1.3); }
+/* Altın düğme ve Altın Lira: altın varak */
+.btn-gold { background: #c99a3c url(/doku/varak.jpg) center / cover; color: #2a1d05; text-shadow: 0 1px 0 rgba(255,240,200,.5); box-shadow: inset 0 0 0 1px rgba(120,80,10,.45); }
+.lira-hint .coin { background: #c99a3c url(/doku/varak.jpg) center / cover; }
+.deals-timer .countdown span { background: #e2b955 url(/doku/varak.jpg) center / cover; color: #2a1d05; }
+/* Ahşap tezgâh: Cevat Usta balonları ve pazarlık şeridi */
+.usta .bubble, .us-bubble, .bargain-band { background: #4a3218 url(/doku/ahsap.jpg) center / cover; }
+.usta .bubble, .us-bubble { box-shadow: inset 0 0 0 1px rgba(0,0,0,.25), 0 6px 16px -8px rgba(40,20,5,.6); }
+/* İznik çini şeritleri */
+.cini-serit { height: 22px; border: 0; background: #fbf8f1 url(/doku/iznik.png) left center / auto 100% repeat-x; }
+.topbar .cini-serit { height: 16px; }
+.section-head h2::after, .us-copy h2::after { width: 72px; height: 12px; border: 0; border-radius: 2px; background: #fbf8f1 url(/doku/iznik.png) left center / auto 100% repeat-x; }
+.usta .bubble::before { background: #5a3a1c; border-color: transparent; }
