@@ -2,6 +2,7 @@ import Link from "next/link";
 import ProductCard from "./ProductCard";
 import Icon from "./Icon";
 import Fener from "./Fener";
+import Yaziyor from "./Yaziyor";
 import type { Product } from "@/lib/catalog";
 
 /** Cevat Usta'nın seçtikleri: ustanın yüzü, kısa bir söz ve her takıda onun notu. */
@@ -14,7 +15,7 @@ export default function UstaSeckisi({ urunler, toplam, tumu = true }: { urunler:
         <div className="us-copy">
           <span className="eyebrow">Cevat Usta'nın seçkisi</span>
           <h2 id="usta-secki">Sizin için seçtiklerim</h2>
-          <div className="us-bubble">Çarşıyı tezgâh tezgâh dolaştım, en beğendiklerimi ayırdım. Her birinin neden güzel olduğunu altına yazdım; gönlün hangisine akarsa.<small>— Cevat Usta</small></div>
+          <div className="us-bubble"><Yaziyor metin="Çarşıyı tezgâh tezgâh dolaştım, en beğendiklerimi ayırdım. Her birinin neden güzel olduğunu altına yazdım; gönlün hangisine akarsa." /><small>— Cevat Usta</small></div>
         </div>
       </div>
       <div className="grid">{urunler.map((p) => <ProductCard key={p.kod} p={p} usta />)}</div>

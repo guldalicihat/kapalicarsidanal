@@ -4,6 +4,7 @@ import { useState } from "react";
 import JewelryArt from "./JewelryArt";
 import Icon from "./Icon";
 import Countdown from "./Countdown";
+import Yaziyor from "./Yaziyor";
 import { ODEME_SURESI_MS, baslat, kabulEt, teklifVer, vazgec, type Olay, type Pazarlik } from "@/lib/patron";
 import { defaultVariant, variantPrice, type Product } from "@/lib/catalog";
 import { gram, tl } from "@/lib/pricing";
@@ -92,18 +93,18 @@ export default function Bargain({ p, olcu }: { p: Product; olcu: string }) {
       <div className="panel bz-chat" aria-live="polite">
         <div className="msg">
           <img className="av" src="/cevat/portre.jpg" alt="" />
-          <div className="b">Hoş geldin! {p.ad}, çok iyi seçim; göz zevkin yerinde. Teklifini yaz, hemen patrona ileteyim.<small>Cevat Usta</small></div>
+          <div className="b"><Yaziyor metin={`Hoş geldin! ${p.ad}, çok iyi seçim; göz zevkin yerinde. Teklifini yaz, hemen patrona ileteyim.`} gecikme={500} /><small>Cevat Usta</small></div>
         </div>
         {s.olaylar.map((o, i) => o.kim === "musteri" ? (
           <div key={i} className="msg me"><div className="b">{satir(o)}<small>{saat(o.zaman)}</small></div></div>
         ) : (
           <div key={i} className="msg">
             <img className="av" src="/cevat/patrona-iletir.jpg" alt="" />
-            <div className="b">{satir(o)}<small>Patronun belirlediği kurallara göre otomatik yanıt · {saat(o.zaman)}</small></div>
+            <div className="b"><Yaziyor metin={satir(o)} gecikme={400} /><small>Patronun belirlediği kurallara göre otomatik yanıt · {saat(o.zaman)}</small></div>
           </div>
         ))}
         {bekle && (
-          <div className="msg"><img className="av" src="/cevat/patrona-iletir.jpg" alt="" /><div className="b">Teklifini patrona ilettim…</div></div>
+          <div className="msg"><img className="av" src="/cevat/patrona-iletir.jpg" alt="" /><div className="b"><span className="yz-nokta"><i /><i /><i /><em>Teklifini patrona ilettim, cevap bekleniyor</em></span></div></div>
         )}
 
         {acik && !bekle && (
@@ -140,13 +141,13 @@ export default function Bargain({ p, olcu }: { p: Product; olcu: string }) {
         {s.durum === "ANLASMA" && bitis && !sureDoldu && (
           <div className="msg">
             <img className="av" src="/cevat/hazirlar.jpg" alt="" />
-            <div className="b">Anlaştınız, hayırlı olsun! Ürün 15 dakika senin için ayrıldı.<small>Cevat Usta</small>
+            <div className="b"><Yaziyor metin="Anlaştınız, hayırlı olsun! Ürün 15 dakika senin için ayrıldı." gecikme={300} /><small>Cevat Usta</small>
               <Link className="btn btn-primary btn-sm" style={{ marginTop: 8 }} href={`/sepet?pazarlik=${p.kod}&olcu=${encodeURIComponent(v.olcu)}&tutar=${s.anlasilan}`}>Ödemeye geç · <Countdown until={bitis} /></Link>
             </div>
           </div>
         )}
         {s.durum === "KAPANDI" && (
-          <div className="msg"><img className="av" src="/cevat/hos-geldin.jpg" alt="" /><div className="b">Olsun, kapımız her zaman açık. Başka bir takıya bakalım mı?<small>Cevat Usta</small></div></div>
+          <div className="msg"><img className="av" src="/cevat/hos-geldin.jpg" alt="" /><div className="b"><Yaziyor metin="Olsun, kapımız her zaman açık. Başka bir takıya bakalım mı?" gecikme={400} /><small>Cevat Usta</small></div></div>
         )}
         <div className="auto-note"><Icon name="info" size={14} />Patron yanıtları, patronun önceden belirlediği kurallarla otomatik verilir. İndirim garantisi yoktur.</div>
       </div>

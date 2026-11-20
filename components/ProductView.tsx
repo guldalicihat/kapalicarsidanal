@@ -6,6 +6,7 @@ import JewelryArt from "./JewelryArt";
 import Icon from "./Icon";
 import DealTimer from "./DealTimer";
 import Stars from "./Stars";
+import Yaziyor from "./Yaziyor";
 import { UrunGuvenceleri } from "./Guvence";
 import { useStore } from "@/lib/useStore";
 import { STOK_METNI, defaultVariant, firsatPrice, variantPrice, type Product } from "@/lib/catalog";
@@ -135,7 +136,7 @@ export default function ProductView({ p, similar }: { p: Product; similar: React
 
           <div className="usta" style={{ marginTop: 18 }}>
             <img className="avatar" src="/cevat/portre.jpg" alt="Cevat Usta" />
-            <div className="bubble">{p.ustaSecimi && <span className="usta-rozet">Cevat Usta'nın seçimi</span>}{p.ustaNotu}<small>— Cevat Usta</small></div>
+            <div className="bubble">{p.ustaSecimi && <span className="usta-rozet">Cevat Usta'nın seçimi</span>}<Yaziyor metin={p.ustaNotu} /><small>— Cevat Usta</small></div>
           </div>
 
           <UrunGuvenceleri ayar={p.ayar} milyem={p.milyem} gramMetni={gram(v.netMg)} pirlantaSertifika={p.pirlanta?.sertifika ?? undefined} />

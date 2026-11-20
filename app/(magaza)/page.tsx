@@ -8,6 +8,7 @@ import { GuvenSeridi } from "@/components/Guvence";
 import UstaSeckisi from "@/components/UstaSeckisi";
 import HeroIsik from "@/components/HeroIsik";
 import Fener from "@/components/Fener";
+import Yaziyor from "@/components/Yaziyor";
 
 const MANIFESTO = [
   { b: "Aracısız", s: "Takı, araya kimse girmeden atölyeden ve toptancıdan sana gelir. Aracı payı fiyata binmez." },
@@ -59,7 +60,7 @@ export default async function Home() {
               <div>
                 <span className="eyebrow" style={{ color: "#f1dca7" }}>Süreli fırsatlar · {firsatlar.length} takı</span>
                 <h2 id="fir">Patronun eli açıkken yakala!</h2>
-                <div className="deals-bubble">Bu takılar için patronu ikna ettim, fiyatları indirdi. Sayaç bitince eski fiyata döner; gözüne kestirdiğini kaçırma!<small>— Cevat Usta</small></div>
+                <div className="deals-bubble"><Yaziyor metin="Bu takılar için patronu ikna ettim, fiyatları indirdi. Sayaç bitince eski fiyata döner; gözüne kestirdiğini kaçırma!" /><small>— Cevat Usta</small></div>
               </div>
             </div>
             <div className="deals-timer"><DealTimer label="En yakın bitiş" bitis={enYakin} /></div>
@@ -87,7 +88,7 @@ export default async function Home() {
           <p>Takıyı Kapalıçarşı'nın atölyelerinden ve kuyum toptancılarından alıp, araya kimse girmeden sigortalı olarak kapına getiriyoruz. Aracı payı olmadığı için fiyat avantajı senin cebinde kalır.</p>
           <div className="usta" style={{ marginTop: 16 }}>
             <img className="avatar" src="/cevat/isinin-ehli.jpg" alt="" />
-            <div className="bubble">Çeşit bende, karar sende. Beğendiğine teklif ver, patrona ileteyim.<small>— Cevat Usta</small></div>
+            <div className="bubble"><Yaziyor metin="Çeşit bende, karar sende. Beğendiğine teklif ver, patrona ileteyim." /><small>— Cevat Usta</small></div>
           </div>
         </div>
         <ol className="man-list">
