@@ -65,12 +65,12 @@ export default async function Home() {
       )}
 
       <section className="section" aria-labelledby="kat">
-        <div className="section-head"><h2 id="kat">Ne arıyorsun?</h2></div>
+        <div className="section-head"><h2 id="kat">Hangi sokağa gidelim?</h2></div>
         <div className="cats">
           {CATEGORIES.map((c) => (
             <Link key={c.slug} href={`/kategori/${c.slug}`} className="cat">
               <span className="disc"><JewelryArt art={c.art} tone={c.slug === "pirlanta" ? "Beyaz altın" : "Sarı altın"} id={`k${c.slug}`} size="78%" /></span>
-              {c.ad}
+              <span className="sokak">{c.sokak}</span>
             </Link>
           ))}
         </div>

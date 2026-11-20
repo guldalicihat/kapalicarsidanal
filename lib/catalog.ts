@@ -3,12 +3,12 @@ import { priceOf, type PriceBreakdown } from "./pricing";
 
 export type CategorySlug = "yuzuk" | "bilezik" | "bileklik" | "kolye" | "kupe" | "pirlanta";
 
-export const CATEGORIES: { slug: CategorySlug; ad: string; cogul: string; art: Art }[] = [
-  { slug: "yuzuk", ad: "Yüzük", cogul: "Altın yüzükler", art: "burgu" },
-  { slug: "bileklik", ad: "Bileklik", cogul: "Altın bileklikler", art: "bileklik" },
-  { slug: "kolye", ad: "Kolye", cogul: "Altın kolyeler", art: "kolye" },
-  { slug: "kupe", ad: "Küpe", cogul: "Altın küpeler", art: "kupe" },
-  { slug: "pirlanta", ad: "Pırlanta", cogul: "Pırlanta takılar", art: "tektas" },
+export const CATEGORIES: { slug: CategorySlug; ad: string; cogul: string; sokak: string; art: Art }[] = [
+  { slug: "yuzuk", sokak: "Yüzükçüler", ad: "Yüzük", cogul: "Altın yüzükler", art: "burgu" },
+  { slug: "bileklik", sokak: "Bileklikçiler", ad: "Bileklik", cogul: "Altın bileklikler", art: "bileklik" },
+  { slug: "kolye", sokak: "Kolyeciler", ad: "Kolye", cogul: "Altın kolyeler", art: "kolye" },
+  { slug: "kupe", sokak: "Küpeciler", ad: "Küpe", cogul: "Altın küpeler", art: "kupe" },
+  { slug: "pirlanta", sokak: "Pırlantacılar", ad: "Pırlanta", cogul: "Pırlanta takılar", art: "tektas" },
 ];
 
 export type Art =

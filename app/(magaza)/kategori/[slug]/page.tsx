@@ -16,9 +16,9 @@ export default async function Kategori({ params, searchParams }: { params: Promi
   const { products: PRODUCTS } = await getCatalog();
   return (
     <div className="shell">
-      <div className="chips" style={{ marginTop: 16 }}>
-        {CATEGORIES.map((k) => <Link key={k.slug} href={`/kategori/${k.slug}`} className={`chip${k.slug === slug ? " on" : ""}`}>{k.ad}</Link>)}
-      </div>
+      <nav className="sokaklar" aria-label="Çarşı sokakları" style={{ marginTop: 16 }}>
+        {CATEGORIES.map((k) => <Link key={k.slug} href={`/kategori/${k.slug}`} className={`sokak${k.slug === slug ? " on" : ""}`} aria-current={k.slug === slug ? "page" : undefined}>{k.sokak}</Link>)}
+      </nav>
       <Listing key={slug} products={PRODUCTS.filter((p) => p.kategori === slug)} title={c.cogul} initialFirsat={sp.firsat === "1"} />
     </div>
   );

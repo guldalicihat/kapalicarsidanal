@@ -28,11 +28,11 @@ export function TopBar() {
           <span className="sub">Altın · Pırlanta</span>
         </Link>
         <nav className="desk-nav" aria-label="Kategoriler">
-          <Link href="/kategori/yuzuk">Yüzük</Link>
-          <Link href="/kategori/bileklik">Bileklik</Link>
-          <Link href="/kategori/kolye">Kolye</Link>
-          <Link href="/kategori/kupe">Küpe</Link>
-          <Link href="/kategori/pirlanta">Pırlanta</Link>
+          <Link href="/kategori/yuzuk">Yüzükçüler</Link>
+          <Link href="/kategori/bileklik">Bileklikçiler</Link>
+          <Link href="/kategori/kolye">Kolyeciler</Link>
+          <Link href="/kategori/kupe">Küpeciler</Link>
+          <Link href="/kategori/pirlanta">Pırlantacılar</Link>
         </nav>
         <span className="spacer" />
         <form className="search" action="/ara" role="search">
@@ -46,6 +46,7 @@ export function TopBar() {
           <Icon name="cart" />{cartCount > 0 && <span className="badge">{cartCount}</span>}
         </Link>
       </div>
+      <div className="cini-serit" aria-hidden="true" />
     </header>
   );
 }
