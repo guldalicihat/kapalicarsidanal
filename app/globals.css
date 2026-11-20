@@ -561,3 +561,22 @@ body { background-color: var(--bg); background-image: url(/doku/tas.jpg); backgr
 .topbar .cini-serit { height: 16px; }
 .section-head h2::after, .us-copy h2::after { width: 72px; height: 12px; border: 0; border-radius: 2px; background: #fbf8f1 url(/doku/iznik.png) left center / auto 100% repeat-x; }
 .usta .bubble::before { background: #5a3a1c; border-color: transparent; }
+
+/* Satın alma çubuğu: Hemen Al parıltısı, pazarlık eli, Cevat Usta'dan teşvik */
+.btn-parla { position: relative; overflow: hidden; }
+.btn-parla::after { content: ""; position: absolute; top: 0; bottom: 0; left: -60%; width: 45%; transform: skewX(-20deg);
+  background: linear-gradient(90deg, transparent, rgba(255,240,200,.55), transparent); animation: btn-parla 7s ease-in-out 2s infinite; pointer-events: none; }
+@keyframes btn-parla { 0% { left: -60%; } 14% { left: 130%; } 100% { left: 130%; } }
+.sticky-buy .btn-outline .el { display: inline-flex; transform-origin: 70% 70%; animation: el-salla 7s ease-in-out 5.5s infinite; }
+@keyframes el-salla { 0%, 8%, 100% { transform: rotate(0); } 2% { transform: rotate(-14deg); } 4% { transform: rotate(10deg); } 6% { transform: rotate(-6deg); } }
+.sticky-buy .btn-outline:disabled .el { animation: none; }
+.durtme { position: absolute; left: max(12px, env(safe-area-inset-left)); right: 76px; bottom: calc(100% + 8px); display: flex; align-items: flex-end; gap: 8px; animation: durtme-gel .4s ease-out; }
+.durtme img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; object-position: 50% 18%; border: 2px solid var(--gold); flex: none; box-shadow: 0 3px 8px rgba(0,0,0,.2); }
+.durtme-b { position: relative; background: #4a3218 url(/doku/ahsap.jpg) center / cover; color: #f6e6c2; border-radius: 14px 14px 14px 4px; padding: 8px 12px; font-size: 13px; line-height: 1.4; box-shadow: 0 8px 20px -8px rgba(40,20,5,.6); max-width: 340px; }
+.durtme-x { position: absolute; top: -8px; right: -6px; left: auto; width: 22px; height: 22px; border-radius: 50%; border: 0; background: var(--paper); color: var(--ink-2); font-size: 15px; line-height: 1; box-shadow: 0 1px 4px rgba(0,0,0,.25); cursor: pointer; }
+.durtme { --durtme-x-sag: 0; }
+.durtme > .durtme-x { position: relative; top: auto; right: auto; align-self: flex-start; margin-left: -18px; margin-top: -6px; }
+@keyframes durtme-gel { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@media (min-width: 900px) { .durtme { left: auto; right: 24px; bottom: calc(100% + 10px); max-width: 420px; } }
+@media (prefers-reduced-motion: reduce) { .btn-parla::after, .sticky-buy .btn-outline .el, .durtme { animation: none; } }
+.sticky-buy .btn { white-space: nowrap; padding: 0 12px; gap: 6px; }

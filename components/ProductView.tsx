@@ -8,6 +8,7 @@ import DealTimer from "./DealTimer";
 import Stars from "./Stars";
 import Yaziyor from "./Yaziyor";
 import { UrunGuvenceleri } from "./Guvence";
+import UstaDurtme from "./UstaDurtme";
 import { useStore } from "@/lib/useStore";
 import { STOK_METNI, defaultVariant, firsatPrice, variantPrice, type Product } from "@/lib/catalog";
 import { gram, tl } from "@/lib/pricing";
@@ -199,12 +200,18 @@ export default function ProductView({ p, similar }: { p: Product; similar: React
       {similar}
 
       <div className="sticky-buy">
+        <UstaDurtme key={`${p.kod}-${v.olcu}`} mesajlar={[
+          ...(firsat ? ["Bu fiyat sayaç bitene kadar geçerli; süre dolunca eski fiyatına döner. Kaçırma derim!"] : []),
+          ...(v.stok === "kendi" ? ["Bu takı elimde hazır; siparişini bugün özenle paketlerim."] : v.stok === "tedarikci" ? ["Bu ölçüyü atölyeden getirtirim, 1–2 iş gününde hazır olur."] : []),
+          ...(!firsat && !yok ? ["Fiyat gözüne biraz yüksek mi geldi? Pazarlık Et'e bas, teklifini patrona ben ileteyim."] : []),
+          `Bu alışverişten ${tl(kazanilacak)} Altın Lira kazanırsın; bir sonraki alışverişinde kullanırsın.`,
+        ]} />
         <div className="shell">
           <div className="p"><b className="num">{tl(fiyat.toplamKurus)}</b><span>{p.olcuTuru ? `Ölçü ${v.olcu} · ` : ""}{gram(v.netMg)}</span></div>
           <div className="btns">
-            <button className="btn btn-primary" disabled={yok} onClick={() => { addToCart(p.kod, v.olcu); router.push("/sepet"); }}>Hemen Al</button>
+            <button className="btn btn-primary btn-parla" disabled={yok} onClick={() => { addToCart(p.kod, v.olcu); router.push("/sepet"); }}>Hemen Al</button>
             <button className="btn btn-outline" disabled={yok || !!firsat} title={firsat ? "Fırsat ürünlerinde pazarlık yapılmaz" : undefined}
-              onClick={() => router.push(`/pazarlik?urun=${p.kod}&olcu=${encodeURIComponent(v.olcu)}`)}>Pazarlık Et</button>
+              onClick={() => router.push(`/pazarlik?urun=${p.kod}&olcu=${encodeURIComponent(v.olcu)}`)}><span className="el"><Icon name="hand" size={18} /></span>Pazarlık Et</button>
           </div>
         </div>
       </div>
