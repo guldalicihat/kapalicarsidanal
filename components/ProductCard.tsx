@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { useEffect, useRef } from "react";
 import JewelryArt from "./JewelryArt";
 import Icon from "./Icon";
 import DealTimer from "./DealTimer";
@@ -16,8 +17,15 @@ export default function ProductCard({ p, usta }: { p: Product; usta?: boolean })
   const normal = variantPrice(p, v);
   const firsat = firsatPrice(p, v);
   const on = fav.includes(p.kod);
+  const kart = useRef<HTMLElement>(null);
+  useEffect(() => {
+    // Altına vuran parıltı: kart ekrana ilk girdiğinde bir kez.
+    const el = kart.current; if (!el || !("IntersectionObserver" in window)) return;
+    const io = new IntersectionObserver((g) => { if (g[0].isIntersecting) { el.classList.add("parla"); io.disconnect(); } }, { threshold: 0.5 });
+    io.observe(el); return () => io.disconnect();
+  }, []);
   return (
-    <article className="card">
+    <article className="card" ref={kart}>
       <Link href={`/urun/${p.kod}`} aria-label={p.ad}>
         <div className="art"><JewelryArt art={p.art} tone={p.renk} id={`c${p.kod}`} size="82%" /></div>
       </Link>

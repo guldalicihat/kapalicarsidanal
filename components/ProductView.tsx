@@ -75,7 +75,7 @@ export default function ProductView({ p, similar }: { p: Product; similar: React
     <div className="pd-page">
       <div className="pd">
         <div className="gallery">
-          <div className={`main${zoom ? " zoom" : ""}`}>
+          <div className={`main parla${zoom ? " zoom" : ""}`}>
             {view === 1 ? (
               <img src="/cevat/urunu-anlatir.jpg" alt="Cevat Usta ürünü anlatıyor" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
             ) : view === 2 ? (

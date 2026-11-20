@@ -1,12 +1,14 @@
 import Link from "next/link";
 import ProductCard from "./ProductCard";
 import Icon from "./Icon";
+import Fener from "./Fener";
 import type { Product } from "@/lib/catalog";
 
 /** Cevat Usta'nın seçtikleri: ustanın yüzü, kısa bir söz ve her takıda onun notu. */
 export default function UstaSeckisi({ urunler, toplam, tumu = true }: { urunler: Product[]; toplam: number; tumu?: boolean }) {
   return (
     <section className="section usta-secki" aria-labelledby="usta-secki">
+      <Fener />
       <div className="us-head">
         <img src="/cevat/isinin-ehli.jpg" alt="Cevat Usta" className="us-face" />
         <div className="us-copy">

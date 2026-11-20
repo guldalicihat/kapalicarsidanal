@@ -37,7 +37,7 @@ export default function Feedback() {
   return (
     <>
       <button className="fb-btn" onClick={() => { setAcik(true); setSonuc(null); }} aria-label="Geri bildirim gönder">
-        <Icon name="megaphone" size={18} /><span>Geri bildirim</span>
+        <Icon name="chat" size={18} /><span>Geri bildirim</span>
       </button>
       {acik && (
         <div className="modal-bg" onClick={() => setAcik(false)}>
