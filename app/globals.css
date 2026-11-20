@@ -580,3 +580,8 @@ body { background-color: var(--bg); background-image: url(/doku/tas.jpg); backgr
 @media (min-width: 900px) { .durtme { left: auto; right: 24px; bottom: calc(100% + 10px); max-width: 420px; } }
 @media (prefers-reduced-motion: reduce) { .btn-parla::after, .sticky-buy .btn-outline .el, .durtme { animation: none; } }
 .sticky-buy .btn { white-space: nowrap; padding: 0 12px; gap: 6px; }
+/* Teşvik balonu: sayfadaki ahşap notlardan ayırt edilsin diye açık renk kart */
+.durtme-b { background: var(--paper); color: var(--ink); border: 1.5px solid var(--gold); box-shadow: 0 10px 28px -6px rgba(30,20,5,.45); }
+.durtme-b b { display: block; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--gold-2); margin-bottom: 2px; }
+.durtme { transition: opacity .25s ease, transform .25s ease; }
+.durtme.gizli { opacity: 0; transform: translateY(8px); pointer-events: none; }

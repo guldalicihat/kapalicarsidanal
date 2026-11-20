@@ -7,6 +7,14 @@ import Yaziyor from "./Yaziyor";
 export default function UstaDurtme({ mesajlar }: { mesajlar: string[] }) {
   const [acik, setAcik] = useState(false);
   const [i, setI] = useState(0);
+  const [gizle, setGizle] = useState(false);
+  useEffect(() => {
+    // Sayfadaki Cevat Usta notu ekranın alt kısmına gelince balon geçici olarak gizlenir, ikisi üst üste binmez.
+    const not = document.querySelector(".pd-info .usta");
+    if (!not || !("IntersectionObserver" in window)) return;
+    const io = new IntersectionObserver((g) => setGizle(g[0].isIntersecting), { rootMargin: "-45% 0px 0px 0px" });
+    io.observe(not); return () => io.disconnect();
+  }, []);
   useEffect(() => {
     try { if (sessionStorage.getItem("ka.durtme") === "kapali") return; } catch { /* */ }
     const t = setTimeout(() => setAcik(true), 3500);
@@ -20,9 +28,9 @@ export default function UstaDurtme({ mesajlar }: { mesajlar: string[] }) {
   if (!acik || !mesajlar.length) return null;
   const kapat = () => { setAcik(false); try { sessionStorage.setItem("ka.durtme", "kapali"); } catch { /* */ } };
   return (
-    <div className="durtme" role="status">
+    <div className={`durtme${gizle ? " gizli" : ""}`} role="status">
       <img src="/cevat/portre.jpg" alt="" />
-      <div className="durtme-b"><Yaziyor key={i} metin={mesajlar[i]} gecikme={600} /></div>
+      <div className="durtme-b"><b>Cevat Usta</b><Yaziyor key={i} metin={mesajlar[i]} gecikme={600} /></div>
       <button className="durtme-x" onClick={kapat} aria-label="Cevat Usta'nın mesajını kapat">×</button>
     </div>
   );
