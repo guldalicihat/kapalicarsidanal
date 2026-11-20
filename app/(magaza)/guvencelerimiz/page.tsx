@@ -15,11 +15,14 @@ const SSS = [
 export default function Guvencelerimiz() {
   return (
     <div className="shell guv">
-      <header className="guv-head">
+      <header className="guv-hero">
+        <img src="/carsi/kapi.jpg" alt="Kapalıçarşı'nın taş kemerli tarihi giriş kapısı" />
+        <div className="guv-head">
         <span className="eyebrow">Güvencelerimiz</span>
         <h1>Güvenle alışveriş, her adımda.</h1>
         <p>İnternetten altın alırken üç şeyi bilmek istersin: firma gerçek mi, param güvende mi, takı eline sağlam ve hakiki ulaşacak mı? Bu sayfada hepsinin cevabı var.</p>
         <div className="preview-note"><Icon name="info" size={16} />Site önizleme aşamasında. Ödeme, kargo ve sigorta; banka ve kargo anlaşmaları tamamlanınca aktif olur. Henüz tamamlanmayan bilgiler “yakında” olarak işaretli.</div>
+        </div>
       </header>
 
       <section className="guv-grid">
@@ -42,12 +45,14 @@ export default function Guvencelerimiz() {
           <ul><li>Kart bilgilerin bize gelmez, saklanmaz.</li><li>Ödeme adımında fiyatın 15 dakika sabitlenir.</li><li>Taksit seçenekleri kartına ve bankana göre, yasal sınırlar içinde gösterilir.</li></ul>
         </article>
         <article id="urun" className="panel guv-card">
+          <img className="guv-foto" src="/carsi/tartiyor.jpg" alt="Cevat Usta altın bileziği terazide tartıyor" loading="lazy" />
           <Icon name="gem" size={26} />
           <h2>Gerçek altın, belgeli</h2>
           <p>Takılar Kapalıçarşı'nın atölyelerinden ve kuyum toptancılarından gelir.</p>
           <ul><li>Ayar damgalı: 14 ayar 585, 22 ayar 916.</li><li>Gramı tartılarak gönderilir.</li><li>Her siparişte firma adına e-fatura.</li><li>Pırlantalarda varsa sertifika numarası ürün sayfasında yazar.</li></ul>
         </article>
         <article id="teslimat" className="panel guv-card">
+          <img className="guv-foto" src="/carsi/paketliyor.jpg" alt="Cevat Usta yüzüğü kadife kutuya yerleştiriyor, yanında mühürlü paket" loading="lazy" />
           <Icon name="truck" size={26} />
           <h2>Sigortalı teslimat</h2>
           <p>Takın özel, mühürlü kutuda, takip numarasıyla yola çıkar.</p>

@@ -66,7 +66,10 @@ export default async function Home() {
       )}
 
       <section className="section" aria-labelledby="kat">
-        <div className="section-head"><h2 id="kat">Hangi sokağa gidelim?</h2></div>
+        <div className="tavan-band">
+          <img src="/carsi/tavan.jpg" alt="" loading="lazy" />
+          <div><span className="eyebrow">Çarşının sokakları</span><h2 id="kat">Hangi sokağa gidelim?</h2></div>
+        </div>
         <div className="cats">
           {CATEGORIES.map((c) => (
             <Link key={c.slug} href={`/kategori/${c.slug}`} className="cat">
@@ -79,6 +82,7 @@ export default async function Home() {
 
       <section className="section manifesto" aria-labelledby="man">
         <div className="man-copy">
+          <img className="man-foto" src="/carsi/vitrin.jpg" alt="Kapalıçarşı'da altın takılarla dolu bir kuyumcu vitrini" loading="lazy" />
           <span className="eyebrow">Neden daha uygun?</span>
           <h2 id="man">Aracısız, ilk elden.</h2>
           <p>Takıyı Kapalıçarşı'nın atölyelerinden ve kuyum toptancılarından alıp, araya kimse girmeden sigortalı olarak kapına getiriyoruz. Aracı payı olmadığı için fiyat avantajı senin cebinde kalır.</p>

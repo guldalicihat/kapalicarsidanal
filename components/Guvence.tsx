@@ -14,6 +14,10 @@ export function GuvenSeridi() {
         </div>
         <Link href="/guvencelerimiz" className="btn btn-gold btn-sm">Güvencelerimiz <Icon name="chevron" size={16} /></Link>
       </div>
+      <div className="tb-fotolar">
+        <figure><img src="/carsi/tartiyor.jpg" alt="Cevat Usta altın bileziği hassas terazide tartıyor" loading="lazy" /><figcaption>Gramı tartılarak gönderilir</figcaption></figure>
+        <figure><img src="/carsi/paketliyor.jpg" alt="Cevat Usta yüzüğü kadife kutuya yerleştiriyor" loading="lazy" /><figcaption>Özenle paketlenir, sigortalı yola çıkar</figcaption></figure>
+      </div>
       <div className="tb-grid">
         <div><Icon name="check" size={18} /><span><b>Ayar damgalı</b>585 · 916, tartılmış gram</span></div>
         <div><Icon name="check" size={18} /><span><b>E-fatura</b>Firma adına, her siparişte</span></div>
