@@ -11,16 +11,13 @@ export const viewport: Viewport = { themeColor: "#0a3a2c", width: "device-width"
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="tr" suppressHydrationWarning>
+    <html lang="tr">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap"
-        />
-        <script
-          dangerouslySetInnerHTML={{ __html: `try{if(localStorage.getItem("ka.kapi")||matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.classList.add("kapi-gordu")}catch(e){document.documentElement.classList.add("kapi-gordu")}` }}
         />
       </head>
       <body>{children}</body>

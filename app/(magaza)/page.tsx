@@ -6,8 +6,6 @@ import DealTimer from "@/components/DealTimer";
 import { getCatalog } from "@/lib/db";
 import { GuvenSeridi } from "@/components/Guvence";
 import UstaSeckisi from "@/components/UstaSeckisi";
-import HeroIsik from "@/components/HeroIsik";
-import Fener from "@/components/Fener";
 import Yaziyor from "@/components/Yaziyor";
 
 const MANIFESTO = [
@@ -29,7 +27,6 @@ export default async function Home() {
     <div className="shell">
       <section className="hero hero-promise">
         <img src="/cevat/hos-geldin.jpg" alt="Cevat Usta, Kapalıçarşı'daki tezgâhında müşterisini karşılıyor" />
-        <HeroIsik />
         <div className="copy">
           <span className="eyebrow" style={{ color: "#d9b96c" }}>Kapalıçarşıdan Al</span>
           <h1>Çarşıdan aracısız.</h1>
@@ -53,7 +50,6 @@ export default async function Home() {
 
       {firsatlar.length > 0 && (
         <section className="section deals" id="firsat" aria-labelledby="fir">
-          <Fener />
           <div className="deals-head">
             <div className="deals-intro">
               <img src="/cevat/pazarlik.jpg" alt="Cevat Usta" className="deals-face" />
