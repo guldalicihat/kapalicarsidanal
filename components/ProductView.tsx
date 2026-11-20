@@ -69,7 +69,7 @@ export default function ProductView({ p, similar }: { p: Product; similar: React
   const thumbs = [
     <JewelryArt key="a" art={p.art} tone={p.renk} id={`t1${p.kod}`} size="86%" />,
     <img key="b" src="/cevat/urunu-anlatir.jpg" alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />,
-    <span key="c" className="stamp">{p.milyem}</span>,
+    p.milyem === 585 ? <img key="c" src="/carsi/damga-585.jpg" alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} /> : <span key="c" className="stamp">{p.milyem}</span>,
     <JewelryArt key="d" art={p.art} tone={p.renk} id={`t2${p.kod}`} size="140%" />,
   ];
 
@@ -81,7 +81,9 @@ export default function ProductView({ p, similar }: { p: Product; similar: React
             {view === 1 ? (
               <img src="/cevat/urunu-anlatir.jpg" alt="Cevat Usta ürünü anlatıyor" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
             ) : view === 2 ? (
-              <div style={{ textAlign: "center" }}><div className="stamp" style={{ fontFamily: "var(--serif)", fontSize: 64, color: "var(--gold-2)", fontWeight: 700 }}>{p.milyem}</div><p className="note">Ayar damgası · gerçek fotoğraf gelecek</p></div>
+              p.milyem === 585
+                ? <figure className="damga-foto"><img src="/carsi/damga-585.jpg" alt="Altın yüzüğün iç yüzündeki 585 ayar damgası" /><figcaption>585 ayar damgası (örnek görsel)</figcaption></figure>
+                : <div style={{ textAlign: "center" }}><div className="stamp" style={{ fontFamily: "var(--serif)", fontSize: 64, color: "var(--gold-2)", fontWeight: 700 }}>{p.milyem}</div><p className="note">Ayar damgası</p></div>
             ) : (
               <button onClick={() => setZoom(!zoom)} aria-label={zoom ? "Yakınlaştırmayı kapat" : "Yakınlaştır"} style={{ border: 0, background: "none", width: "100%", display: "grid", placeItems: "center" }}>
                 <JewelryArt art={p.art} tone={p.renk} id={`m${p.kod}`} size={view === 3 ? "120%" : "78%"} />

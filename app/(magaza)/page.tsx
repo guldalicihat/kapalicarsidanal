@@ -1,6 +1,5 @@
 import Link from "next/link";
 import ProductCard from "@/components/ProductCard";
-import JewelryArt from "@/components/JewelryArt";
 import Icon from "@/components/Icon";
 import DealTimer from "@/components/DealTimer";
 import { getCatalog } from "@/lib/db";
@@ -73,7 +72,7 @@ export default async function Home() {
         <div className="cats">
           {CATEGORIES.map((c) => (
             <Link key={c.slug} href={`/kategori/${c.slug}`} className="cat">
-              <span className="disc"><JewelryArt art={c.art} tone={c.slug === "pirlanta" ? "Beyaz altın" : "Sarı altın"} id={`k${c.slug}`} size="78%" /></span>
+              <span className="disc"><img src={`/kategori/${c.slug}.jpg`} alt="" loading="lazy" /></span>
               <span className="sokak">{c.sokak}</span>
             </Link>
           ))}
